@@ -16,12 +16,7 @@ public class Sims4RandomnizerApplication {
 
     public static void main(String[] args) {
 
-
         SpringApplication.run(Sims4RandomnizerApplication.class, args);
-
-        Household household = Generator.generateHousehold();
-        List<Sim> sims = Generator.generateSims(household);
-        Printer.printResults(new GameSave(household, sims));
     }
 
 }

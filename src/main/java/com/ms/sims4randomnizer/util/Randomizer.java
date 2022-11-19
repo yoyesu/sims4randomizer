@@ -36,8 +36,8 @@ public class Randomizer {
         return LifeSpan.values()[id];
     }
 
-    public static int getNumberOfStarterSims(){
-        int id = new Random().nextInt(1,9);
+    public static int getNumberOfStarterSims(int exclusiveMax){
+        int id = new Random().nextInt(1,exclusiveMax);
         return id;
     }
 

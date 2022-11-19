@@ -20,13 +20,12 @@ public class TeenSim extends Sim{
 
     @Override
     public String toString() {
-        return "TeenSim{" +
-                "aspiration=" + aspiration +
-                ", job=" + job +
-                ", sexualPreference=" + sexualPreference +
-                ", skillsToMax=" + Arrays.toString(skillsToMax) +
-                ", gender=" + gender +
-                ", ageGroup=" + ageGroup +
-                '}';
+        return "Age: " + ageGroup
+                + "<br>Gender: " + gender
+                + "<br>Aspiration: " + aspiration
+                + "<br>Job: " + job
+                + "<br>Sexual Preference: " + sexualPreference
+                + "<br>Skills they need to Max: " + Arrays.toString(skillsToMax)
+                ;
     }
 }

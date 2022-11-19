@@ -90,16 +90,15 @@ public class AdultSim extends Sim {
 
     @Override
     public String toString() {
-        return "AdultSim{" +
-                "aspiration=" + aspiration +
-                ", job=" + job +
-                ", sexualPreference=" + sexualPreference +
-                ", children=" + children +
-                ", skillsToMax=" + Arrays.toString(skillsToMax) +
-                ", isMarried='" + isMarried + '\'' +
-                ", willMarry='" + willMarry + '\'' +
-                ", gender=" + gender +
-                ", ageGroup=" + ageGroup +
-                '}';
+        return "Age: " + ageGroup
+                + "<br>Gender: " + gender
+                + "<br>Aspiration: " + aspiration
+                + "<br>Job: " + job
+                + "<br>Sexual Preference: " + sexualPreference
+                + "<br>Children: " + children
+                + "<br>Skills they need to Max: " + Arrays.toString(skillsToMax)
+                + "<br>Are they Married?: " + isMarried
+                + "<br>Will they marry ever o again?: " + willMarry
+                ;
     }
 }

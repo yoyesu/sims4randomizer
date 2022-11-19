@@ -14,7 +14,7 @@ import static com.ms.sims4randomnizer.util.Randomizer.*;
 public class Generator {
 
     public static Household generateHousehold(){
-        Household household = new Household(getRandomLifeSpan(), getNumberOfStarterSims());
+        Household household = new Household(getRandomLifeSpan(), getNumberOfStarterSims(9));
         return household;
     }
 
