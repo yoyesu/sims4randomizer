@@ -16,8 +16,18 @@ public class Randomizer {
         return Job.values()[id];
     }
 
-    public static AgeGroup getRandomAgeGroup(){
-        int id = new Random().nextInt(AgeGroup.values().length);
+    public static TeenJob getRandomTeenJob(){
+        int id = new Random().nextInt(TeenJob.values().length);
+        return TeenJob.values()[id];
+    }
+
+    public static AgeGroup getRandomAgeGroup(int starterSims){
+        int id;
+        if(starterSims < 2){
+            id = new Random().nextInt(3, AgeGroup.values().length);
+        } else {
+            id = new Random().nextInt(AgeGroup.values().length);
+        }
         return AgeGroup.values()[id];
     }
 
@@ -27,7 +37,7 @@ public class Randomizer {
     }
 
     public static int getNumberOfStarterSims(){
-        int id = new Random().nextInt(9);
+        int id = new Random().nextInt(1,9);
         return id;
     }
 
