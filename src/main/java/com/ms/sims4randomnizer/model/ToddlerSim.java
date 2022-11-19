@@ -2,6 +2,8 @@ package com.ms.sims4randomnizer.model;
 
 import com.ms.sims4randomnizer.util.Randomizer;
 
+import java.util.Arrays;
+
 public class ToddlerSim extends Sim{
 
     public ToddlerSim() {
@@ -10,9 +12,8 @@ public class ToddlerSim extends Sim{
 
     @Override
     public String toString() {
-        return "ToddlerSim{" +
-                "gender=" + gender +
-                ", ageGroup=" + ageGroup +
-                '}';
+        return "Age: " + ageGroup
+                + "<br>Gender: " + gender
+                ;
     }
 }
