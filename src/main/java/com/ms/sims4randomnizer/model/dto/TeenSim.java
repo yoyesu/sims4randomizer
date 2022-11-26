@@ -1,10 +1,15 @@
-package com.ms.sims4randomnizer.model;
+package com.ms.sims4randomnizer.model.dto;
 
+import com.ms.sims4randomnizer.model.dto.Sim;
+import com.ms.sims4randomnizer.model.enums.AgeGroup;
+import com.ms.sims4randomnizer.model.enums.Aspiration;
+import com.ms.sims4randomnizer.model.enums.SexualPreference;
+import com.ms.sims4randomnizer.model.enums.TeenJob;
 import com.ms.sims4randomnizer.util.Randomizer;
 
 import java.util.Arrays;
 
-public class TeenSim extends Sim{
+public class TeenSim extends Sim {
     private Aspiration aspiration;
     private TeenJob job;
     private SexualPreference sexualPreference;

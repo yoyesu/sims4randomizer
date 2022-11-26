@@ -1,5 +1,9 @@
-package com.ms.sims4randomnizer.model;
+package com.ms.sims4randomnizer.model.dto;
 
+import com.ms.sims4randomnizer.model.enums.AgeGroup;
+import com.ms.sims4randomnizer.model.enums.Aspiration;
+import com.ms.sims4randomnizer.model.enums.Job;
+import com.ms.sims4randomnizer.model.enums.SexualPreference;
 import com.ms.sims4randomnizer.util.Randomizer;
 
 import java.util.Arrays;
@@ -94,6 +98,7 @@ public class AdultSim extends Sim {
                 + "<br>Gender: " + gender
                 + "<br>Aspiration: " + aspiration
                 + "<br>Job: " + job
+                + "<br>Job level: " + job.getLevel()
                 + "<br>Sexual Preference: " + sexualPreference
                 + "<br>Children: " + children
                 + "<br>Skills they need to Max: " + Arrays.toString(skillsToMax)

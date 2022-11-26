@@ -1,4 +1,4 @@
-package com.ms.sims4randomnizer.model;
+package com.ms.sims4randomnizer.model.enums;
 
 public enum AgeGroup {
 

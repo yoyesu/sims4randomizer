@@ -1,4 +1,6 @@
-package com.ms.sims4randomnizer.model;
+package com.ms.sims4randomnizer.model.dto;
+
+import com.ms.sims4randomnizer.model.enums.LifeSpan;
 
 public class Household {
     private final int maxSims = 8;

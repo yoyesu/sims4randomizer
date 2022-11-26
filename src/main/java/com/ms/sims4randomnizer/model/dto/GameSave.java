@@ -1,4 +1,4 @@
-package com.ms.sims4randomnizer.model;
+package com.ms.sims4randomnizer.model.dto;
 
 import java.util.List;
 

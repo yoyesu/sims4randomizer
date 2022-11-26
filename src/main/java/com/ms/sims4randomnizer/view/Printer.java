@@ -1,8 +1,9 @@
 package com.ms.sims4randomnizer.view;
 
-import com.ms.sims4randomnizer.model.*;
+import com.ms.sims4randomnizer.model.dto.GameSave;
+import com.ms.sims4randomnizer.model.dto.Household;
+import com.ms.sims4randomnizer.model.dto.Sim;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Printer {

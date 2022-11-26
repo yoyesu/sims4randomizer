@@ -1,10 +1,14 @@
-package com.ms.sims4randomnizer.model;
+package com.ms.sims4randomnizer.model.dto;
+
+import com.ms.sims4randomnizer.model.enums.AgeGroup;
+import com.ms.sims4randomnizer.model.enums.Gender;
 
 public class Sim {
     protected String name;
     protected String surname;
     protected Gender gender;
     protected AgeGroup ageGroup;
+    protected static String[] skills;
 
     public Sim(Gender gender, AgeGroup ageGroup) {
         this.gender = gender;
@@ -41,6 +45,10 @@ public class Sim {
 
     public void setAgeGroup(AgeGroup ageGroup) {
         this.ageGroup = ageGroup;
+    }
+
+    public static String[] getSkills() {
+        return skills;
     }
 
     @Override
