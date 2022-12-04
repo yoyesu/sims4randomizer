@@ -1,9 +1,5 @@
 package com.ms.sims4randomnizer.util;
 
-import com.ms.sims4randomnizer.model.dto.AdultSim;
-import com.ms.sims4randomnizer.model.dto.ChildSim;
-import com.ms.sims4randomnizer.model.dto.Sim;
-import com.ms.sims4randomnizer.model.dto.ToddlerSim;
 import com.ms.sims4randomnizer.model.enums.*;
 
 import java.io.FileReader;
@@ -14,6 +10,8 @@ public class Randomizer {
 
     private static int difficulty;
     private static int lifeSpanType;
+    private static int numberOfStarterSims;
+    private static int wedding;
     static {
         loadConfiguration();
     }
@@ -24,7 +22,9 @@ public class Randomizer {
             properties.load(new FileReader("src/main/resources/configuration.properties"));
             int difficultyLevel = Integer.parseInt(properties.getProperty("difficultyLevel"));
             int lifeSpan = Integer.parseInt(properties.getProperty("lifeSpan"));
-            setConfiguration(difficultyLevel, lifeSpan);
+            int starterSims = Integer.parseInt(properties.getProperty("numberOfSimsToStartWith"));
+            int wedding = Integer.parseInt(properties.getProperty("wedding"));
+            setConfiguration(difficultyLevel, lifeSpan, starterSims, wedding);
 
 
         } catch (IOException | NumberFormatException e) {
@@ -32,9 +32,11 @@ public class Randomizer {
         }
     }
 
-    private static void setConfiguration(int difficultyLevel, int lifeSpan) {
+    private static void setConfiguration(int difficultyLevel, int lifeSpan, int numberOfSimsToStartWith, int willWed) {
         difficulty = difficultyLevel > 0 && difficultyLevel <= 3 ? difficultyLevel : 0;
         lifeSpanType = lifeSpan > 0 && lifeSpan <= 3 ? lifeSpan : 0;
+        numberOfStarterSims = numberOfSimsToStartWith > 0 && numberOfSimsToStartWith <= 8 ? numberOfSimsToStartWith : 0;
+        wedding = willWed > 0 ? willWed : 0;
 
     }
     public static int getRandomJobLevel(){
@@ -78,14 +80,35 @@ public class Randomizer {
         return AgeGroup.values()[new Random().nextInt(origin, bound)];
     }
 
-    public static LifeSpan getRandomLifeSpan(){
+    public static LifeSpan getLifeSpan(){
         int id = new Random().nextInt(LifeSpan.values().length);
+        switch (lifeSpanType){
+            case 1 -> id = 0;
+            case 2 -> id = 1;
+            case 3 -> id = 2;
+        }
         return LifeSpan.values()[id];
     }
 
     public static int getNumberOfStarterSims(){
-        int id = new Random().nextInt(1,9);
-        return id;
+        int origin = 1;
+        int bound = 9;
+        int sims;
+
+        if (numberOfStarterSims == 0){//0 means the user wants it random
+            switch (difficulty){
+                case 1 -> bound = 4;
+                case 2 -> {
+                    origin = 3;
+                    bound = 6;
+                }
+                case 3 -> origin = 4;
+            }
+            sims = new Random().nextInt(origin,bound);
+        } else {
+            sims = numberOfStarterSims;
+        }
+        return sims;
     }
 
     public static Gender getGender(){
@@ -109,18 +132,93 @@ public class Randomizer {
     }
 
     public static int getNumberOfChildren(){
-        int id = new Random().nextInt(8);
-        return id;
+        int bound = 10;
+        int origin = 0;
+        switch (lifeSpanType){
+            case 1 -> {//short
+                if(difficulty == 1){
+                    bound = 3;
+                } else if (difficulty == 2) {
+                    origin = 1;
+                    bound = 5;
+                } else if (difficulty == 3){
+                    origin = 2;
+                    bound = 7;
+                }
+            }
+            case 2 -> {//med
+                if(difficulty == 1){
+                    bound = 6;
+                } else if (difficulty == 2) {
+                    origin = 1;
+                    bound = 7;
+                } else if (difficulty == 3){
+                    origin = 3;
+                    bound = 8;
+                }
+            }
+
+            case 3 -> { //long
+                if(difficulty == 1){
+                    bound = 4;
+                } else if (difficulty == 2) {
+                    origin = 1;
+                    bound = 6;
+                } else if (difficulty == 3){
+                    origin = 5;
+                }
+            }
+        }
+
+        return new Random().nextInt(origin, bound);
     }
 
     public static Object[] getSkillsToMax(){
-        int id = new Random().nextInt(Skill.values().length);
-        Set<Skill> skills = new HashSet<>();
-        for(int i = 0; i <= id; i++){
-            if(!skills.add(Skill.values()[new Random().nextInt(Skill.values().length)])){
-                i--;
+        int origin = 0;
+        int bound = Skill.values().length;
+
+        switch (lifeSpanType) {
+            case 1 -> {//short
+                if (difficulty == 1) {
+                    bound = 4;
+                } else if (difficulty == 2) {
+                    origin = 1;
+                    bound = 6;
+                } else if (difficulty == 3) {
+                    origin = 3;
+                    bound = 13;
+                }
+            }
+            case 2 -> {//med
+                if (difficulty == 1) {
+                    bound = 7;
+                } else if (difficulty == 2) {
+                    origin = 2;
+                    bound = 9;
+                } else if (difficulty == 3) {
+                    origin = 5;
+                    bound = 16;
+                }
             }
 
+            case 3 -> { //long
+                if (difficulty == 1) {
+                    bound = 11;
+                } else if (difficulty == 2) {
+                    origin = 3;
+                    bound = 13;
+                } else if (difficulty == 3) {
+                    origin = 7;
+                }
+            }
+        }
+
+        int numberOfSkills = new Random().nextInt(origin, bound); //this sets the max number of skills to complete
+        Set<Skill> skills = new HashSet<>();
+        for(int i = 0; i <= numberOfSkills; i++){
+            if(!skills.add(Skill.values()[new Random().nextInt(Skill.values().length)])){ //this picks skills until the max number of skills is reached
+                i--;
+            }
         }
         Object[] skillsToMax = skills.toArray();
         return skillsToMax;
@@ -159,7 +257,7 @@ public class Randomizer {
     }
 
     public static boolean getNewWedding(){
-        int id = new Random().nextInt(2);
+        int id = wedding == 0 ? new Random().nextInt(2) : wedding;
         // 0 sim will marry if single or will marry AGAIN if already married, 1 will not marry again or at all
         return id == 0;
     }

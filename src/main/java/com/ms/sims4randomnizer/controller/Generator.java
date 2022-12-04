@@ -5,12 +5,8 @@ import com.ms.sims4randomnizer.model.dto.Sim;
 import com.ms.sims4randomnizer.model.SimFactory;
 import com.ms.sims4randomnizer.util.Randomizer;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
 
 import static com.ms.sims4randomnizer.util.Randomizer.*;
 
@@ -18,7 +14,7 @@ public class Generator {
 
 
     public static Household generateHousehold(){
-        return new Household(getRandomLifeSpan(), getNumberOfStarterSims());
+        return new Household(getLifeSpan(), getNumberOfStarterSims());
     }
 
     public static List<Sim> generateSims(Household household){
