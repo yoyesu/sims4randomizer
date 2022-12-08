@@ -33,12 +33,13 @@ public class Randomizer {
     }
 
     private static void setConfiguration(int difficultyLevel, int lifeSpan, int numberOfSimsToStartWith, int willWed) {
-        difficulty = difficultyLevel > 0 && difficultyLevel <= 3 ? difficultyLevel : 0;
-        lifeSpanType = lifeSpan > 0 && lifeSpan <= 3 ? lifeSpan : 0;
+        difficulty = difficultyLevel > 0 && difficultyLevel <= 3 ? difficultyLevel : new Random().nextInt(1, 4);
+        lifeSpanType = lifeSpan > 0 && lifeSpan <= 3 ? lifeSpan : new Random().nextInt(1, 4);
         numberOfStarterSims = numberOfSimsToStartWith > 0 && numberOfSimsToStartWith <= 8 ? numberOfSimsToStartWith : 0;
         wedding = willWed > 0 ? willWed : 0;
 
     }
+
     public static int getRandomJobLevel(){
         int bound = 11;
         int origin = 1;
