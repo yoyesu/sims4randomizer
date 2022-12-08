@@ -30,7 +30,7 @@ public class AppController {
         return Printer.printResults(new GameSave(household, sims));
     }
 
-    @GetMapping("new-sim")
+    @GetMapping("/new-sim")
     public String getRandomSim(){
         int chosenAge = loadConfiguration();
         int id = chosenAge > 0 && chosenAge < 7 ? chosenAge : new Random().nextInt(1,7);
@@ -44,7 +44,7 @@ public class AppController {
     private static int loadConfiguration() {
         Properties properties = new Properties();
         try {
-            properties.load(new FileReader("src/main/resources/configuration.properties"));
+            properties.load(new FileReader("src/main/resources/singleSimConfig.properties"));
             int age = Integer.parseInt(properties.getProperty("age"));
             return age;
 

@@ -12,19 +12,27 @@ public class Randomizer {
     private static int lifeSpanType;
     private static int numberOfStarterSims;
     private static int wedding;
+    private static int genderOfSim;
+    private static int alreadyMarried;
+    private static int childrenToHave;
     static {
         loadConfiguration();
     }
 
     private static void loadConfiguration() {
         Properties properties = new Properties();
+        Properties singleSimProperties = new Properties();
         try {
             properties.load(new FileReader("src/main/resources/configuration.properties"));
+            singleSimProperties.load(new FileReader("src/main/resources/singleSimConfig.properties"));
             int difficultyLevel = Integer.parseInt(properties.getProperty("difficultyLevel"));
             int lifeSpan = Integer.parseInt(properties.getProperty("lifeSpan"));
             int starterSims = Integer.parseInt(properties.getProperty("numberOfSimsToStartWith"));
-            int wedding = Integer.parseInt(properties.getProperty("wedding"));
-            setConfiguration(difficultyLevel, lifeSpan, starterSims, wedding);
+            int wedding = Integer.parseInt(singleSimProperties.getProperty("wedding"));
+            int gender = Integer.parseInt(singleSimProperties.getProperty("gender"));
+            int married = Integer.parseInt(singleSimProperties.getProperty("alreadyMarried"));
+            int children = Integer.parseInt(singleSimProperties.getProperty("childrenToHave"));
+            setConfiguration(difficultyLevel, lifeSpan, starterSims, wedding, gender, married, children);
 
 
         } catch (IOException | NumberFormatException e) {
@@ -32,12 +40,14 @@ public class Randomizer {
         }
     }
 
-    private static void setConfiguration(int difficultyLevel, int lifeSpan, int numberOfSimsToStartWith, int willWed) {
+    private static void setConfiguration(int difficultyLevel, int lifeSpan, int numberOfSimsToStartWith, int willWed, int gender, int married, int children) {
         difficulty = difficultyLevel > 0 && difficultyLevel <= 3 ? difficultyLevel : new Random().nextInt(1, 4);
         lifeSpanType = lifeSpan > 0 && lifeSpan <= 3 ? lifeSpan : new Random().nextInt(1, 4);
         numberOfStarterSims = numberOfSimsToStartWith > 0 && numberOfSimsToStartWith <= 8 ? numberOfSimsToStartWith : 0;
-        wedding = willWed > 0 ? willWed : 0;
-
+        wedding = willWed > 0 && willWed < 3 ? willWed : 0;
+        genderOfSim = gender > 0 && gender < 3 ? gender : 0;
+        alreadyMarried = married > 0 && married < 3 ? married : 0;
+        childrenToHave = children >= 0 ? children : -1;
     }
 
     public static int getRandomJobLevel(){
@@ -113,7 +123,7 @@ public class Randomizer {
     }
 
     public static Gender getGender(){
-        int id = new Random().nextInt(Gender.values().length);
+        int id = genderOfSim == 0? new Random().nextInt(Gender.values().length) : genderOfSim;
         return Gender.values()[id];
     }
 
@@ -171,7 +181,8 @@ public class Randomizer {
             }
         }
 
-        return new Random().nextInt(origin, bound);
+        int numberOfChildren = childrenToHave == -1 ? new Random().nextInt(origin, bound) : childrenToHave;
+        return numberOfChildren;
     }
 
     public static Object[] getSkillsToMax(){
@@ -252,9 +263,9 @@ public class Randomizer {
     }
 
     public static boolean getMarriageStatus(){
-        int id = new Random().nextInt(2);
-        // 0 married, 1 single
-        return id == 0;
+        int id = alreadyMarried == 0 ? new Random().nextInt(1,2) : alreadyMarried;
+        // 1 married, 2 single
+        return id == 1;
     }
 
     public static boolean getNewWedding(){
