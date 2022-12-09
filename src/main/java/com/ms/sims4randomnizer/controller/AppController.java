@@ -1,10 +1,12 @@
 package com.ms.sims4randomnizer.controller;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.ms.sims4randomnizer.model.SimFactory;
 import com.ms.sims4randomnizer.model.dto.GameSave;
 import com.ms.sims4randomnizer.model.dto.Household;
 import com.ms.sims4randomnizer.model.dto.Sim;
 import com.ms.sims4randomnizer.model.enums.AgeGroup;
+import com.ms.sims4randomnizer.util.Randomizer;
 import com.ms.sims4randomnizer.view.Printer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,9 @@ import java.util.Random;
 @RestController
 public class AppController {
 
+//    public static boolean isSingleMode = false;
+static Properties properties = new Properties();
+
     @GetMapping("/")
     public String index(){
         return "Sims generator";
@@ -25,6 +30,8 @@ public class AppController {
 
     @GetMapping("/starter-household")
     public String getStarterHousehold(){
+        PropertiesLoader.setIsSingleSimMode(0);
+        PropertiesLoader.loadConfiguration();
         Household household = Generator.generateHousehold();
         List<Sim> sims = Generator.generateSims(household);
         return Printer.printResults(new GameSave(household, sims));
@@ -32,6 +39,8 @@ public class AppController {
 
     @GetMapping("/new-sim")
     public String getRandomSim(){
+        PropertiesLoader.setIsSingleSimMode(1);
+        PropertiesLoader.loadConfiguration();
         int chosenAge = loadConfiguration();
         int id = chosenAge > 0 && chosenAge < 7 ? chosenAge : new Random().nextInt(1,7);
         AgeGroup age = AgeGroup.getAgeById(id);
@@ -42,7 +51,6 @@ public class AppController {
     }
 
     private static int loadConfiguration() {
-        Properties properties = new Properties();
         try {
             properties.load(new FileReader("src/main/resources/singleSimConfig.properties"));
             int age = Integer.parseInt(properties.getProperty("age"));
