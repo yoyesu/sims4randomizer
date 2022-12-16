@@ -36,8 +36,42 @@
     <p >Difficulty: <span th:text="${game.getDifficulty()}"></span></p>
 
 
-    <div th:each="sim : ${sims}" class="invisible results">
-        <p style="white-space: pre-line" th:text="${sim.toString()}"></p>
+     <div th:if="${adults != null}" th:each="adult : ${adults}" class="results">
+        <p >Gender: <span th:text="${adult.getGender()}"></span></p>
+        <p >Age: <span th:text="${adult.getAgeGroup()}"></span></p>
+        <p >Skills: <span th:text="${adult.getSkills()}"></span></p>
+        <p >Aspiration: <span th:text="${adult.getAspiration()}"></span></p>
+        <p >Job: <span th:text="${adult.getJob()}"></span></p>
+        <p >Job Level: <span th:text="${adult.getJob().getLevel()}"></span></p>
+        <p >Sexual Preference: <span th:text="${adult.getSexualPreference()}"></span></p>
+        <p >Children: <span th:text="${adult.getChildren()}"></span></p>
+        <p >Is Married?: <span th:text="${adult.isMarried()}"></span></p>
+        <p >Will Marry?: <span th:text="${adult.willMarry()}"></span></p>
+
+    </div>
+
+    <div th:if="${teens != null}" th:each="teen : ${teens}" class="results">
+        <p >Gender: <span th:text="${teen.getGender()}"></span></p>
+        <p >Age: <span th:text="${teen.getAgeGroup()}"></span></p>
+        <p >Skills: <span th:text="${teen.getSkills()}"></span></p>
+        <p >Aspiration: <span th:text="${teen.getAspiration()}"></span></p>
+        <p >Job: <span th:text="${teen.getJob()}"></span></p>
+        <p >Sexual Preference: <span th:text="${teen.getSexualPreference()}"></span></p>
+
+    </div>
+
+    <div th:if="${children != null}" th:each="child : ${children}" class="results">
+        <p >Gender: <span th:text="${child.getGender()}"></span></p>
+        <p >Age: <span th:text="${child.getAgeGroup()}"></span></p>
+        <p >Skills: <span th:text="${child.getSkills()}"></span></p>
+        <p >Aspiration: <span th:text="${child.getAspiration()}"></span></p>
+
+    </div>
+
+    <div th:if="${toddlers != null}" th:each="toddler : ${toddlers}" class="results">
+        <p >Gender: <span th:text="${toddler.getGender()}"></span></p>
+        <p >Age: <span th:text="${toddler.getAgeGroup()}"></span></p>
+        <p >Skills: <span th:text="${toddler.getSkills()}"></span></p>
 
     </div>
 

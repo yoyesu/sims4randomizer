@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 //@RequestMapping("/generators")
@@ -37,7 +34,6 @@ static Properties properties = new Properties();
     public String getStarterHousehold(Model model){
 
         model.addAttribute("config", StarterFormConfig.getInstance());
-//        PropertiesLoader properties = new PropertiesLoader();
         PropertiesLoader.setIsSingleSimMode(0);
         PropertiesLoader.loadConfiguration();
         return "starter-household";
@@ -45,7 +41,6 @@ static Properties properties = new Properties();
 
     @PostMapping("/starter-household/results")
     public String submitForm(@ModelAttribute("config") StarterFormConfig config, Model model) {
-//        PropertiesLoader properties = new PropertiesLoader();
         PropertiesLoader.setNumberOfStarterSims(config.getStarterSims());
         PropertiesLoader.setDifficulty(config.getDifficulty());
         PropertiesLoader.setLifeSpanType(config.getLifespan());
@@ -53,16 +48,35 @@ static Properties properties = new Properties();
         PropertiesLoader.loadConfiguration();
         Household household = Generator.generateHousehold();
         List<Sim> sims = Generator.generateSims(household);
+        List<AdultSim> adults = new ArrayList<>();
+        List<TeenSim> teens = new ArrayList<>();
+        List<ChildSim> children = new ArrayList<>();
+        List<ToddlerSim> toddlers = new ArrayList<>();
+
+        for(Sim sim : sims){
+            if(sim instanceof AdultSim){
+                adults.add((AdultSim) sim);
+                model.addAttribute("adults", adults);
+            } else if(sim instanceof ChildSim){
+                children.add((ChildSim) sim);
+                model.addAttribute("children", children);
+            } else if(sim instanceof TeenSim){
+                teens.add((TeenSim) sim);
+                model.addAttribute("teens", teens);
+            } else if(sim instanceof ToddlerSim){
+                toddlers.add((ToddlerSim) sim);
+                model.addAttribute("toddlers", toddlers);
+            }
+        }
+
 
         model.addAttribute("household", household);
-        model.addAttribute("sims", sims);
         model.addAttribute("game", new GameSave(household, sims));
         return "starter-household-results";
     }
 
     @GetMapping("/new-sim")
     public String getRandomSim(Model model){
-//        PropertiesLoader properties = new PropertiesLoader();
         PropertiesLoader.loadConfiguration();
 
         model.addAttribute("config", NewSimFormConfig.getInstance());

@@ -35,12 +35,6 @@
 
     <form id="config-panel" action="#" th:action="@{/new-sim/results}" method="post" th:object="${config}">
         <div id="game-mode-config">
-<!--            <input type="radio" id="easy-mode" th:field="*{difficulty}" value="1">-->
-<!--            <label for="easy-mode">Easy</label><br>-->
-<!--            <input type="radio" id="normal-mode" th:field="*{difficulty}" value="2">-->
-<!--            <label th:for="normal-mode">Normal</label><br>-->
-<!--            <input type="radio" id="hard-mode" th:field="*{difficulty}" value="3">-->
-<!--            <label th:for="hard-mode">Hard</label>-->
             <label th:for="difficulty-game">Difficulty:
                 <select th:field="*{difficulty}">
                     <option
