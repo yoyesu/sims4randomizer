@@ -31,25 +31,25 @@
 
 <main>
     <h1>New Sim Generator</h1>
+    <div class="results-container">
+        <p >Lifespan: <span th:text="${household.getLifeSpan()}"></span></p>
+        <p >Difficulty: <span th:text="${game.getDifficulty()}"></span></p>
+        <p >Gender: <span th:text="${sim.get(0).getGender()}"></span></p>
+        <p >Age: <span th:text="${sim.get(0).getAgeGroup()}"></span></p>
+        <p >Skills: <span th:text="${sim.get(0).getSkills()}"></span></p>
+        <p th:class="${adult == null ? 'invisible' : 'visible'}">Aspiration: <span th:if="${adult != null}" th:text="${adult.getAspiration()}"></span></p>
+        <p th:class="${adult == null ? 'invisible' : 'visible'}">Job: <span th:if="${adult != null}" th:text="${adult.getJob()}"></span></p>
+        <p th:class="${adult == null ? 'invisible' : 'visible'}">Job Level: <span th:if="${adult != null}" th:text="${adult.getJob().getLevel()}"></span></p>
+        <p th:class="${adult == null ? 'invisible' : 'visible'}">Sexual Preference: <span th:if="${adult != null}" th:text="${adult.getSexualPreference()}"></span></p>
+        <p th:class="${adult == null ? 'invisible' : 'visible'}">Children: <span th:if="${adult != null}" th:text="${adult.getChildren()}"></span></p>
+        <p th:class="${adult == null ? 'invisible' : 'visible'}">Is Married?: <span th:if="${adult != null}" th:text="${adult.isMarried()}"></span></p>
+        <p th:class="${adult == null ? 'invisible' : 'visible'}">Will Marry?: <span th:if="${adult != null}" th:text="${adult.willMarry()}"></span></p>
+        <p th:class="${teen == null ? 'invisible' : 'visible'}">Teen job: <span th:if="${teen != null}" th:text="${teen.getJob()}"></span></p>
+        <p th:class="${teen == null ? 'invisible' : 'visible'}">Teen Aspiration: <span th:if="${teen != null}" th:text="${teen.getAspiration()}"></span></p>
+        <p th:class="${teen == null ? 'invisible' : 'visible'}">Teen Sexuality: <span th:if="${teen != null}" th:text="${teen.getSexualPreference()}"></span></p>
+        <p th:class="${child == null ? 'invisible' : 'visible'}">Child Aspiration: <span th:if="${child != null}" th:text="${child.getAspiration()}"></span></p>
 
-    <p >Lifespan: <span th:text="${household.getLifeSpan()}"></span></p>
-    <p >Difficulty: <span th:text="${game.getDifficulty()}"></span></p>
-    <p >Gender: <span th:text="${sim.get(0).getGender()}"></span></p>
-    <p >Age: <span th:text="${sim.get(0).getAgeGroup()}"></span></p>
-    <p >Skills: <span th:text="${sim.get(0).getSkills()}"></span></p>
-    <p th:class="${adult == null ? 'invisible' : 'visible'}">Aspiration: <span th:if="${adult != null}" th:text="${adult.getAspiration()}"></span></p>
-    <p th:class="${adult == null ? 'invisible' : 'visible'}">Job: <span th:if="${adult != null}" th:text="${adult.getJob()}"></span></p>
-    <p th:class="${adult == null ? 'invisible' : 'visible'}">Job Level: <span th:if="${adult != null}" th:text="${adult.getJob().getLevel()}"></span></p>
-    <p th:class="${adult == null ? 'invisible' : 'visible'}">Sexual Preference: <span th:if="${adult != null}" th:text="${adult.getSexualPreference()}"></span></p>
-    <p th:class="${adult == null ? 'invisible' : 'visible'}">Children: <span th:if="${adult != null}" th:text="${adult.getChildren()}"></span></p>
-    <p th:class="${adult == null ? 'invisible' : 'visible'}">Is Married?: <span th:if="${adult != null}" th:text="${adult.isMarried()}"></span></p>
-    <p th:class="${adult == null ? 'invisible' : 'visible'}">Will Marry?: <span th:if="${adult != null}" th:text="${adult.willMarry()}"></span></p>
-    <p th:class="${teen == null ? 'invisible' : 'visible'}">Teen job: <span th:if="${teen != null}" th:text="${teen.getJob()}"></span></p>
-    <p th:class="${teen == null ? 'invisible' : 'visible'}">Teen Aspiration: <span th:if="${teen != null}" th:text="${teen.getAspiration()}"></span></p>
-    <p th:class="${teen == null ? 'invisible' : 'visible'}">Teen Sexuality: <span th:if="${teen != null}" th:text="${teen.getSexualPreference()}"></span></p>
-    <p th:class="${child == null ? 'invisible' : 'visible'}">Child Aspiration: <span th:if="${child != null}" th:text="${child.getAspiration()}"></span></p>
-
-
+    </div>
 
 </main>
 
