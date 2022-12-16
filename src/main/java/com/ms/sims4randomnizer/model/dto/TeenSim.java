@@ -23,6 +23,28 @@ public class TeenSim extends Sim {
         this.skillsToMax = skillsToMax;
     }
 
+    public Aspiration getAspiration() {
+        return aspiration;
+    }
+
+    public TeenJob getJob() {
+        return job;
+    }
+
+    public SexualPreference getSexualPreference() {
+        return sexualPreference;
+    }
+
+//    public Object[] getSkillsToMax() {
+//        return skillsToMax;
+//    }
+
+    @Override
+    public String getSkills() {
+
+        return Arrays.toString(skillsToMax);
+    }
+
     @Override
     public String toString() {
         return "Age: " + ageGroup

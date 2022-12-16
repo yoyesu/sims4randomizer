@@ -9,7 +9,7 @@ import com.ms.sims4randomnizer.util.Randomizer;
 import java.util.Arrays;
 
 public class AdultSim extends Sim {
-    private Aspiration aspiration;
+    public Aspiration aspiration;
     private Job job;
     private SexualPreference sexualPreference;
     private int children;
@@ -65,10 +65,14 @@ public class AdultSim extends Sim {
         this.children = children;
     }
 
-    public Object[] getSkillsToMax() {
-        return skillsToMax;
-    }
+//    public Object[] getSkillsToMax() {
+//        return skillsToMax;
+//    }
 
+    @Override
+    public String getSkills() {
+        return Arrays.toString(skillsToMax);
+    }
     public void setSkillsToMax(Object[] skillsToMax) {
         this.skillsToMax = skillsToMax;
     }
@@ -95,15 +99,15 @@ public class AdultSim extends Sim {
     @Override
     public String toString() {
         return "Age: " + ageGroup
-                + "<br>Gender: " + gender
-                + "<br>Aspiration: " + aspiration
-                + "<br>Job: " + job
-                + "<br>Job level: " + job.getLevel()
-                + "<br>Sexual Preference: " + sexualPreference
-                + "<br>Children: " + children
-                + "<br>Skills they need to Max: " + Arrays.toString(skillsToMax)
-                + "<br>Are they Married?: " + isMarried
-                + "<br>Will they marry ever o again?: " + willMarry
+                + "\nGender: " + gender
+                + "\nAspiration: " + aspiration
+                + "\nJob: " + job
+                + "\nJob level: " + job.getLevel()
+                + "\nSexual Preference: " + sexualPreference
+                + "\nChildren: " + children
+                + "\nSkills they need to Max: " + Arrays.toString(skillsToMax)
+                + "\nAre they Married?: " + isMarried
+                + "\nWill they marry ever o again?: " + willMarry
                 ;
     }
 }

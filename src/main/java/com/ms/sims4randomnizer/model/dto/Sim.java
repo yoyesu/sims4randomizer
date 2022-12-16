@@ -8,7 +8,7 @@ public class Sim {
     protected String surname;
     protected Gender gender;
     protected AgeGroup ageGroup;
-    protected static String[] skills;
+    protected String skills;
 
     public Sim(Gender gender, AgeGroup ageGroup) {
         this.gender = gender;
@@ -47,10 +47,14 @@ public class Sim {
         this.ageGroup = ageGroup;
     }
 
-    public static String[] getSkills() {
+    public String getSkills() {
+
         return skills;
     }
 
+    public static Class<? extends Sim> getChildClass(Sim sim){
+        return sim.getClass();
+    }
     @Override
     public String toString() {
         return super.toString();

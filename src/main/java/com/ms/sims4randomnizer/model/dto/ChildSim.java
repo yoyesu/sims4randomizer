@@ -5,6 +5,8 @@ import com.ms.sims4randomnizer.model.enums.ChildAspiration;
 import com.ms.sims4randomnizer.model.enums.ChildSkills;
 import com.ms.sims4randomnizer.util.Randomizer;
 
+import java.util.Arrays;
+
 public class ChildSim extends Sim{
 
     private ChildAspiration aspiration;
@@ -33,9 +35,11 @@ public class ChildSim extends Sim{
         this.skillsToMax = skillsToMax;
     }
 
-//    public static String[] getSkills() {
-//        return skills;
-//    }
+    @Override
+    public String getSkills() {
+
+        return Arrays.toString(skillsToMax);
+    }
 
     @Override
     public String toString() {

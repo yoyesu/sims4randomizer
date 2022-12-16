@@ -1,0 +1,83 @@
+/* CSS reset start */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border: 1px solid black;
+}
+/* reset end */
+
+
+/* General styling */
+html {
+    height: 100%;
+    background-color: #8A9AF0;
+}
+
+footer{
+    background-color: #B8F0AF;
+    padding: 1rem 3rem;
+    margin-top: 2rem;
+    width: 100%;
+
+}
+
+/**************************/
+
+/* NAVBAR */
+
+nav{
+    background-color: #B8F0AF;
+    padding: 1rem 3rem;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5rem;
+}
+
+header nav ul li{
+    display: inline;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/**********************/
+
+
+/* MAIN BODY */
+
+main{
+    background-color: #8A9AF0;
+    padding: 2rem 2rem 5rem 5rem;
+    text-align: center;
+}
+
+h1{
+    text-align: center;
+    color: white;
+    font-size: 5rem;
+}
+
+p {
+    font-size: large;
+}
+/********************/
+
+.start-btn{
+    padding: 0.5rem 2rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background-color: #E9F3A6;
+}
+
+.invisible{
+    display: none;
+}
+
+.visible{
+    display: block;
+}
+

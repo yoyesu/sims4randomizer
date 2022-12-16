@@ -1,61 +1,15 @@
 package com.ms.sims4randomnizer.util;
 
-import com.ms.sims4randomnizer.controller.AppController;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.ms.sims4randomnizer.controller.PropertiesLoader;
+import com.ms.sims4randomnizer.model.StarterFormConfig;
 import com.ms.sims4randomnizer.model.enums.*;
-
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 public class Randomizer {
 
-    private static int difficulty = PropertiesLoader.getDifficulty();
-    private static int lifeSpanType = PropertiesLoader.getLifeSpanType();
-    private static int numberOfStarterSims = PropertiesLoader.getNumberOfStarterSims();
-//    static {
-//        loadConfiguration();
-//    }
-
-//    private static void loadConfiguration() {
-//        Properties properties = new Properties();
-//        Properties singleSimProperties = new Properties();
-//        try {
-//            properties.load(new FileReader("src/main/resources/configuration.properties"));
-//            singleSimProperties.load(new FileReader("src/main/resources/singleSimConfig.properties"));
-//            int mode = Integer.parseInt(properties.getProperty("isSingleSimMode"));
-//            int difficultyLevel = Integer.parseInt(properties.getProperty("difficultyLevel"));
-//            int lifeSpan = Integer.parseInt(properties.getProperty("lifeSpan"));
-//            int starterSims = Integer.parseInt(properties.getProperty("numberOfSimsToStartWith"));
-//            int wedding = Integer.parseInt(singleSimProperties.getProperty("wedding"));
-//            int gender = Integer.parseInt(singleSimProperties.getProperty("gender"));
-//            int married = Integer.parseInt(singleSimProperties.getProperty("alreadyMarried"));
-//            int children = Integer.parseInt(singleSimProperties.getProperty("childrenToHave"));
-//            setConfiguration(difficultyLevel, lifeSpan, starterSims, wedding, gender, married, children, mode);
-//
-//
-//        } catch (IOException | NumberFormatException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private static void setConfiguration(int difficultyLevel, int lifeSpan, int numberOfSimsToStartWith, int willWed, int gender, int married, int children, int mode) {
-//        difficulty = difficultyLevel > 0 && difficultyLevel <= 3 ? difficultyLevel : new Random().nextInt(1, 4);
-//        lifeSpanType = lifeSpan > 0 && lifeSpan <= 3 ? lifeSpan : new Random().nextInt(1, 4);
-//        numberOfStarterSims = numberOfSimsToStartWith > 0 && numberOfSimsToStartWith <= 8 ? numberOfSimsToStartWith : 0;
-//
-//        System.out.println(mode);
-//        if(mode == 1){
-//            wedding = willWed > 0 && willWed < 3 ? willWed : 0;
-//            genderOfSim = gender > 0 && gender < 3 ? gender : 0;
-//            alreadyMarried = married > 0 && married < 3 ? married : 0;
-//            childrenToHave = children >= 0 ? children : -1;
-//        }
-//
-//    }
-
     public static int getRandomJobLevel(){
-//        loadConfiguration();
+        int difficulty = PropertiesLoader.getDifficulty();
         int bound = 11;
         int origin = 1;
         switch (difficulty){
@@ -80,6 +34,8 @@ public class Randomizer {
     }
 
     public static AgeGroup getRandomAgeGroup(int starterSims){
+        int difficulty = PropertiesLoader.getDifficulty();
+        int age = PropertiesLoader.getSimAge();
         int origin = 0;
         int bound = AgeGroup.values().length;
         if(starterSims == 1 && (difficulty == 1 || difficulty == 2) || difficulty == 1){
@@ -93,20 +49,24 @@ public class Randomizer {
             bound = AgeGroup.ELDERLY.ordinal() +1;
         }
 
-        return AgeGroup.values()[new Random().nextInt(origin, bound)];
+        int id = age == -1 ? new Random().nextInt(origin, bound) : age;
+        return AgeGroup.values()[id];
     }
 
     public static LifeSpan getLifeSpan(){
-        int id = new Random().nextInt(LifeSpan.values().length);
-        switch (lifeSpanType){
-            case 1 -> id = 0;
-            case 2 -> id = 1;
-            case 3 -> id = 2;
-        }
-        return LifeSpan.values()[id];
+//        int id = new Random().nextInt(LifeSpan.values().length);
+//        int lifeSpanType = ;
+//        switch (lifeSpanType){
+//            case 1 -> id = 0;
+//            case 2 -> id = 1;
+//            case 3 -> id = 2;
+//        }
+        return LifeSpan.values()[PropertiesLoader.getLifeSpanType()];
     }
 
     public static int getNumberOfStarterSims(){
+        int difficulty = PropertiesLoader.getDifficulty();
+        int numberOfStarterSims = PropertiesLoader.getNumberOfStarterSims();
         int origin = 1;
         int bound = 9;
         int sims;
@@ -128,8 +88,9 @@ public class Randomizer {
     }
 
     public static Gender getGender(){
-        int genderOfSim = PropertiesLoader.getGenderOfSim();
-        int id = genderOfSim == 0? new Random().nextInt(Gender.values().length) : genderOfSim;
+        PropertiesLoader properties = new PropertiesLoader();
+        int genderOfSim = properties.getGenderOfSim();
+        int id = genderOfSim < 0? new Random().nextInt(Gender.values().length) : genderOfSim;
         return Gender.values()[id];
     }
 
@@ -149,10 +110,12 @@ public class Randomizer {
     }
 
     public static int getNumberOfChildren(){
+        int difficulty = PropertiesLoader.getDifficulty();
+        LifeSpan lifeSpanType = LifeSpan.values()[PropertiesLoader.getLifeSpanType()];
         int bound = 10;
         int origin = 0;
         switch (lifeSpanType){
-            case 1 -> {//short
+            case SHORT -> {//short
                 if(difficulty == 1){
                     bound = 3;
                 } else if (difficulty == 2) {
@@ -163,7 +126,7 @@ public class Randomizer {
                     bound = 7;
                 }
             }
-            case 2 -> {//med
+            case NORMAL -> {//med
                 if(difficulty == 1){
                     bound = 6;
                 } else if (difficulty == 2) {
@@ -175,7 +138,7 @@ public class Randomizer {
                 }
             }
 
-            case 3 -> { //long
+            case LONG -> { //long
                 if(difficulty == 1){
                     bound = 4;
                 } else if (difficulty == 2) {
@@ -193,11 +156,13 @@ public class Randomizer {
     }
 
     public static Object[] getSkillsToMax(){
+        int difficulty = PropertiesLoader.getDifficulty();
+        LifeSpan lifeSpanType = LifeSpan.values()[PropertiesLoader.getLifeSpanType()];
         int origin = 0;
         int bound = Skill.values().length;
 
         switch (lifeSpanType) {
-            case 1 -> {//short
+            case SHORT -> {//short
                 if (difficulty == 1) {
                     bound = 4;
                 } else if (difficulty == 2) {
@@ -208,7 +173,7 @@ public class Randomizer {
                     bound = 13;
                 }
             }
-            case 2 -> {//med
+            case NORMAL -> {//med
                 if (difficulty == 1) {
                     bound = 7;
                 } else if (difficulty == 2) {
@@ -220,7 +185,7 @@ public class Randomizer {
                 }
             }
 
-            case 3 -> { //long
+            case LONG -> { //long
                 if (difficulty == 1) {
                     bound = 11;
                 } else if (difficulty == 2) {

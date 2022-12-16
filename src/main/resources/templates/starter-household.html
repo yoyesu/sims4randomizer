@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!-- allows the use of thymeleaf expressions-->
+<head>
+    <title>Sims 4 Generator: starter household</title>
+
+    <!-- REPLACE HREF BELOW WITH th:href="@{/css/style.css}" -->
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
+
+</head>
+
+<body>
+
+<header>
+    <!-- NAV START -->
+    <nav>
+        <ul>
+            <li ><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/starter-household}">Starter</a></li>
+            <li>Legacy</li>
+            <li><a th:href="@{/new-sim}">Sim</a></li>
+            <!--the li below should be a dropdown of all the independent generators-->
+            <li>Independent Generators</li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Starter Household Generator</h1>
+
+    <form id="config-panel" class="invisible" action="#" th:action="@{/starter-household/results}" method="post" th:object="${config}">
+        <div id="game-mode-config">
+            <input type="radio" id="easy-mode" th:field="*{difficulty}" value="1">
+            <label for="easy-mode">Easy</label><br>
+            <input type="radio" id="normal-mode" th:field="*{difficulty}" value="2">
+            <label th:for="normal-mode">Normal</label><br>
+            <input type="radio" id="hard-mode" th:field="*{difficulty}" value="3">
+            <label th:for="hard-mode">Hard</label>
+        </div>
+
+        <div id="lifespan-config">
+            <label th:for="lifespan-sim">Lifespan:
+                <select th:field="*{lifespan}">
+                    <option
+                            th:each="lifespan : ${T(com.ms.sims4randomnizer.model.enums.LifeSpan).values()}"
+                            th:value="${lifespan.ordinal()}"
+                            th:text="${lifespan}" ></option>
+                    <option
+                            th:value="${-1}"
+                            th:text="RANDOM" ></option>
+                </select>
+            </label>
+        </div>
+
+        <div id="number-sims-config">
+            <label th:for="number-sims">Choose the number of sims to generate:</label>
+            <select th:field="*{starterSims}">
+                <option
+                        th:each="dropdownValue: ${multiCheckboxAllValues}"
+                        th:value="${dropdownValue}"
+                        th:text="${dropdownValue}" ></option>
+            </select>
+
+        </div>
+
+        <input type="submit" value="Start" class="start-btn">
+
+    </form>
+
+
+</main>
+
+
+<footer>
+    <p>4 Generator: a tool for simmers developed by a fellow simmer</p>
+</footer>
+
+
+
+
+
+
+</body>
+
+</html>
