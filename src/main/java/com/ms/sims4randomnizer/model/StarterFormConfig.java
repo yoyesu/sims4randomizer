@@ -5,8 +5,7 @@ public class StarterFormConfig {
     private int difficulty;
     private int lifespan;
     private int starterSims;
-//    private int gender;
-//    private int age;
+
     private static StarterFormConfig instance;
 
     private StarterFormConfig() {
@@ -18,22 +17,6 @@ public class StarterFormConfig {
         }
         return instance;
     }
-
-//    public int getGender() {
-//        return gender;
-//    }
-//
-//    public void setGender(int gender) {
-//        this.gender = gender;
-//    }
-//
-//    public int getAge() {
-//        return age;
-//    }
-//
-//    public void setAge(int age) {
-//        this.age = age;
-//    }
 
     public int getDifficulty() {
         return difficulty;

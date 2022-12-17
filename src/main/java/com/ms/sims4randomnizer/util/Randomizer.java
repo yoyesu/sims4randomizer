@@ -53,6 +53,13 @@ public class Randomizer {
         return AgeGroup.values()[id];
     }
 
+    public static AgeGroup getRandomAgeGroup(){
+        // USER COULD PASS IN ORIGIN AND/OR BOUND
+        int origin = 0;
+        int bound = AgeGroup.values().length;
+        return AgeGroup.values()[new Random().nextInt(origin, bound)];
+    }
+
     public static LifeSpan getLifeSpan(){
 //        int id = new Random().nextInt(LifeSpan.values().length);
 //        int lifeSpanType = ;
