@@ -23,6 +23,14 @@ public class Randomizer {
         return new Random().nextInt(origin, bound);
     }
 
+    public static int getRandomJobLevel(int bound, int origin){
+        //not accepting different limits at the moment, will do at some point
+        bound = 11;
+        origin = 1;
+
+        return new Random().nextInt(origin, bound);
+    }
+
     public static Job getRandomJob(){
         int id = new Random().nextInt(Job.values().length);
         return Job.values()[id];
@@ -69,6 +77,11 @@ public class Randomizer {
 //            case 3 -> id = 2;
 //        }
         return LifeSpan.values()[PropertiesLoader.getLifeSpanType()];
+    }
+
+    public static LifeSpan getIndependentLifeSpan(){
+        int id = new Random().nextInt(LifeSpan.values().length);
+        return LifeSpan.values()[id];
     }
 
     public static int getNumberOfStarterSims(){

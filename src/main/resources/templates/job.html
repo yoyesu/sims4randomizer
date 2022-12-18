@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!-- allows the use of thymeleaf expressions-->
+<head>
+    <title>Sims 4 Generator: Random Job</title>
+
+    <!-- REPLACE HREF BELOW WITH th:href="@{/css/style.css}" -->
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
+
+</head>
+
+<body>
+
+<header>
+    <!-- NAV START -->
+    <nav>
+        <ul>
+            <li ><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/starter-household}">Starter</a></li>
+            <li>Legacy</li>
+            <li><a th:href="@{/new-sim}">Sim</a></li>
+            <!--the li below should be a dropdown of all the independent generators-->
+            <li>Independent Generators</li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Randomize Job</h1>
+
+    <div class="results-container">
+        <p ><span th:if="${job != null}" th:text="${job}"></span></p>
+    </div>
+
+    <form id="config-panel" action="#" th:action="@{/individual/job}" method="post" th:object="${config}">
+
+        <input type="submit" value="Start" class="start-btn">
+
+    </form>
+
+
+
+
+</main>
+
+
+<footer>
+    <p>4 Generator: a tool for simmers developed by a fellow simmer</p>
+</footer>
+
+
+
+
+
+
+</body>
+
+</html>
