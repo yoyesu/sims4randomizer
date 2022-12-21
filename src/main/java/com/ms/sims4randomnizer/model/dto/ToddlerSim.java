@@ -2,10 +2,12 @@ package com.ms.sims4randomnizer.model.dto;
 
 import com.ms.sims4randomnizer.model.dto.Sim;
 import com.ms.sims4randomnizer.model.enums.AgeGroup;
+import com.ms.sims4randomnizer.model.enums.Skill;
 import com.ms.sims4randomnizer.model.enums.ToddlerSkills;
 import com.ms.sims4randomnizer.util.Randomizer;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class ToddlerSim extends Sim {
 
@@ -22,9 +24,9 @@ public class ToddlerSim extends Sim {
     }
 
     @Override
-    public String getSkills() {
+    public Object[] getSkills() {
 
-        return Arrays.toString(skillsToMax);
+        return skillsToMax;
     }
 
     @Override

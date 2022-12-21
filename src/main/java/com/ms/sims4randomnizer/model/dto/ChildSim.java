@@ -2,17 +2,13 @@ package com.ms.sims4randomnizer.model.dto;
 
 import com.ms.sims4randomnizer.model.enums.AgeGroup;
 import com.ms.sims4randomnizer.model.enums.ChildAspiration;
-import com.ms.sims4randomnizer.model.enums.ChildSkills;
 import com.ms.sims4randomnizer.util.Randomizer;
-
-import java.util.Arrays;
 
 public class ChildSim extends Sim{
 
     private ChildAspiration aspiration;
     private Object[] skillsToMax; //skills the sim has to develop to the max level
-//    private static final ChildSkills[] skills = ChildSkills.values(); //all skills
-//    private static final String[] skills = {"Creativity", "Motor", "Mental", "Social"};
+
     public ChildSim(ChildAspiration aspiration, Object[] skillsToMax) {
         super(Randomizer.getGender(), AgeGroup.CHILD);
         this.aspiration = aspiration;
@@ -31,14 +27,14 @@ public class ChildSim extends Sim{
         return skillsToMax;
     }
 
-    public void setSkillsToMax(Object[] skillsToMax) {
+    public void setSkillsToMax(String[] skillsToMax) {
         this.skillsToMax = skillsToMax;
     }
 
     @Override
-    public String getSkills() {
+    public Object[] getSkills() {
 
-        return Arrays.toString(skillsToMax);
+        return skillsToMax;
     }
 
     @Override

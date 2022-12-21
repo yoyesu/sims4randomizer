@@ -1,5 +1,7 @@
 package com.ms.sims4randomnizer.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.ms.sims4randomnizer.model.NewSimFormConfig;
 import com.ms.sims4randomnizer.model.SimFactory;
@@ -9,6 +11,10 @@ import com.ms.sims4randomnizer.model.enums.AgeGroup;
 import com.ms.sims4randomnizer.model.enums.Gender;
 import com.ms.sims4randomnizer.util.Randomizer;
 import com.ms.sims4randomnizer.view.Printer;
+import org.apache.coyote.Request;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +23,87 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-@Controller
-//@RequestMapping("/generators")
+@RestController
 public class AppController {
 
-//    public static boolean isSingleMode = false;
-static Properties properties = new Properties();
+    @PostMapping("/test/new-sim")
+    public ResponseEntity<NewSimFormConfig> submitNewSimForm() throws JsonProcessingException {
+        //get params from front-end
+
+        //map params to an object
+        ObjectMapper mapper = new ObjectMapper();
+
+        NewSimFormConfig config = new NewSimFormConfig();
+        //return object
+        return ResponseEntity.status(HttpStatus.OK).body(config);
+    }
+
+    @PostMapping("/new-sim")
+    public ResponseEntity<GameSave> submitNewSimForm(@RequestBody NewSimFormConfig config) throws JsonProcessingException {
+        //get params from front-end --> IT'S THE REQUEST BODY
+
+        //map params to properties loader
+        System.out.println("request body " + config.toString());
+        PropertiesLoader.setIsSingleSimMode(1);
+        PropertiesLoader.setGenderOfSim(config.getGender());
+        PropertiesLoader.setDifficulty(config.getDifficulty());
+        System.out.println("Lifespan in config: " + config.getLifespan());
+        PropertiesLoader.setLifeSpanType(config.getLifespan());
+        PropertiesLoader.setSimAge(config.getAge());
+
+        PropertiesLoader.loadConfiguration();
+
+        Household household = Generator.generateHousehold();
+        household.setStarterSims(1);
+        List<Sim> sim = Generator.generateSims(household);
+
+        System.out.println(new GameSave(household,sim).getDifficulty());
+        //return json with new sim data
+        return ResponseEntity.status(HttpStatus.OK).body(new GameSave(household,sim));
+    }
+
+//    @GetMapping("/new-sim")
+//    public String sendNewSimResults() throws JsonProcessingException {
+//        //get object
+//
+//        //send object values into logic
+//
+//        //get logic results
+//
+//        //convert logic results into JSON
+//        ObjectMapper mapper = new ObjectMapper();
+//        String result = mapper.writeValueAsString(Randomizer.getRandomAgeGroup());
+//
+//        PropertiesLoader.setIsSingleSimMode(1);
+////        PropertiesLoader properties = new PropertiesLoader();
+////        PropertiesLoader.setGenderOfSim(config.getGender());
+////        PropertiesLoader.setDifficulty(config.getDifficulty());
+////        PropertiesLoader.setLifeSpanType(config.getLifespan());
+////        PropertiesLoader.setSimAge(config.getAge());
+//
+//        PropertiesLoader.loadConfiguration();
+//
+//        Household household = Generator.generateHousehold();
+//        household.setStarterSims(1);
+//        List<Sim> sim = Generator.generateSims(household);
+//
+//        if(sim.get(0) instanceof AdultSim adult){
+////            model.addAttribute("adult", adult);
+//        } else if(sim.get(0) instanceof ChildSim child){
+////            model.addAttribute("child", child);
+//        } else if(sim.get(0) instanceof TeenSim teen){
+////            model.addAttribute("teen", teen);
+//        } else if(sim.get(0) instanceof ToddlerSim toddler){
+////            model.addAttribute("toddler", toddler);
+//        }
+//
+////        model.addAttribute("sim", sim);
+////        model.addAttribute("household", household);
+////        model.addAttribute("game", new GameSave(household, sim));
+//
+////        return "new-sim-results";
+//        return result;
+//    }
 
     @GetMapping("/")
     public String index(Model model){
@@ -75,54 +156,6 @@ static Properties properties = new Properties();
         return "starter-household-results";
     }
 
-    @GetMapping("/new-sim")
-    public String getRandomSim(Model model){
-        PropertiesLoader.loadConfiguration();
-
-        model.addAttribute("config", NewSimFormConfig.getInstance());
-
-        return "new-sim";
-    }
-
-    @PostMapping("/new-sim/results")
-    public String submitResults(@ModelAttribute("config") NewSimFormConfig config, Model model){
-        PropertiesLoader.setIsSingleSimMode(1);
-//        PropertiesLoader properties = new PropertiesLoader();
-        PropertiesLoader.setGenderOfSim(config.getGender());
-        PropertiesLoader.setDifficulty(config.getDifficulty());
-        PropertiesLoader.setLifeSpanType(config.getLifespan());
-        PropertiesLoader.setSimAge(config.getAge());
-
-        PropertiesLoader.loadConfiguration();
-
-        Household household = Generator.generateHousehold();
-        household.setStarterSims(1);
-        List<Sim> sim = Generator.generateSims(household);
-//        try {
-//            System.out.println(sim.get(0).getClass().getDeclaredFields()[0].get(sim.get(0)));
-//        } catch (IllegalAccessException e) {
-//            throw new RuntimeException(e);
-//        }
-//        AgeGroup[] ages = AgeGroup.values();
-//        System.out.println(ages[config.getAge()]);
-//        System.out.println(sim.get(0) instanceof AdultSim);
-        if(sim.get(0) instanceof AdultSim adult){
-            model.addAttribute("adult", adult);
-        } else if(sim.get(0) instanceof ChildSim child){
-            model.addAttribute("child", child);
-        } else if(sim.get(0) instanceof TeenSim teen){
-            model.addAttribute("teen", teen);
-        } else if(sim.get(0) instanceof ToddlerSim toddler){
-            model.addAttribute("toddler", toddler);
-        }
-
-        model.addAttribute("sim", sim);
-        model.addAttribute("household", household);
-        model.addAttribute("game", new GameSave(household, sim));
-
-        return "new-sim-results";
-    }
-
     @ModelAttribute("multiCheckboxAllValues")
     public String[] getMultiCheckboxAllValues() {
         return new String[] {
@@ -130,17 +163,4 @@ static Properties properties = new Properties();
                 "4", "5", "6", "7", "8"
         };
     }
-
-//    private static int loadConfiguration() {
-//        try {
-//            properties.load(new FileReader("src/main/resources/singleSimConfig.properties"));
-//            int age = Integer.parseInt(properties.getProperty("age"));
-//            return age;
-//
-//        } catch (IOException | NumberFormatException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return 0;
-//    }
 }

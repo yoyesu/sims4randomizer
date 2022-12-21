@@ -1,5 +1,7 @@
 package com.ms.sims4randomnizer.model;
 
+import java.util.Arrays;
+
 public class NewSimFormConfig {
 
     private int difficulty;
@@ -7,7 +9,7 @@ public class NewSimFormConfig {
     private int starterSims;
     private int aspiration;
     private int gender;
-    private int age;
+    private int age = -1;
     private int job;
     private int jobLevel;
     private int sexuality;
@@ -16,17 +18,17 @@ public class NewSimFormConfig {
     private boolean isMarried;
     private boolean willMarry;
 
-    private static NewSimFormConfig instance;
+//    private static NewSimFormConfig instance;
 
-    private NewSimFormConfig() {
+    public NewSimFormConfig() {
     }
 
-    public static NewSimFormConfig getInstance(){
-        if (instance == null) {
-            instance = new NewSimFormConfig();
-        }
-        return instance;
-    }
+//    public static NewSimFormConfig getInstance(){
+//        if (instance == null) {
+//            instance = new NewSimFormConfig();
+//        }
+//        return instance;
+//    }
 
     public int getGender() {
         return gender;
@@ -98,5 +100,24 @@ public class NewSimFormConfig {
 
     public boolean isWillMarry() {
         return willMarry;
+    }
+
+    @Override
+    public String toString() {
+        return "NewSimFormConfig{" +
+                "difficulty=" + difficulty +
+                ", lifespan=" + lifespan +
+                ", starterSims=" + starterSims +
+                ", aspiration=" + aspiration +
+                ", gender=" + gender +
+                ", age=" + age +
+                ", job=" + job +
+                ", jobLevel=" + jobLevel +
+                ", sexuality=" + sexuality +
+                ", skills=" + Arrays.toString(skills) +
+                ", children=" + children +
+                ", isMarried=" + isMarried +
+                ", willMarry=" + willMarry +
+                '}';
     }
 }

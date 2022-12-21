@@ -1,6 +1,5 @@
 package com.ms.sims4randomnizer.model.dto;
 
-import com.ms.sims4randomnizer.model.dto.Sim;
 import com.ms.sims4randomnizer.model.enums.AgeGroup;
 import com.ms.sims4randomnizer.model.enums.Aspiration;
 import com.ms.sims4randomnizer.model.enums.SexualPreference;
@@ -35,14 +34,10 @@ public class TeenSim extends Sim {
         return sexualPreference;
     }
 
-//    public Object[] getSkillsToMax() {
-//        return skillsToMax;
-//    }
-
     @Override
-    public String getSkills() {
+    public Object[] getSkills() {
 
-        return Arrays.toString(skillsToMax);
+        return skillsToMax;
     }
 
     @Override

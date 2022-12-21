@@ -70,10 +70,10 @@ public class AdultSim extends Sim {
 //    }
 
     @Override
-    public String getSkills() {
-        return Arrays.toString(skillsToMax);
+    public Object[] getSkills() {
+        return skillsToMax;
     }
-    public void setSkillsToMax(Object[] skillsToMax) {
+    public void setSkillsToMax(String[] skillsToMax) {
         this.skillsToMax = skillsToMax;
     }
 

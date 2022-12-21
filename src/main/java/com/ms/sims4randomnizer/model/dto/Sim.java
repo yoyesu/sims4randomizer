@@ -2,13 +2,16 @@ package com.ms.sims4randomnizer.model.dto;
 
 import com.ms.sims4randomnizer.model.enums.AgeGroup;
 import com.ms.sims4randomnizer.model.enums.Gender;
+import com.ms.sims4randomnizer.model.enums.Skill;
+
+import java.util.List;
 
 public class Sim {
     protected String name;
     protected String surname;
     protected Gender gender;
     protected AgeGroup ageGroup;
-    protected String skills;
+    protected Object[] skills;
 
     public Sim(Gender gender, AgeGroup ageGroup) {
         this.gender = gender;
@@ -47,7 +50,7 @@ public class Sim {
         this.ageGroup = ageGroup;
     }
 
-    public String getSkills() {
+    public Object[] getSkills() {
 
         return skills;
     }

@@ -1,5 +1,6 @@
 package com.ms.sims4randomnizer.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.ms.sims4randomnizer.controller.PropertiesLoader;
 import com.ms.sims4randomnizer.model.StarterFormConfig;
 
