@@ -77,7 +77,7 @@ public class AdultSim extends Sim {
         this.skillsToMax = skillsToMax;
     }
 
-    public String isMarried() {
+    public String getIsMarried() {
         return isMarried;
     }
 
@@ -85,7 +85,7 @@ public class AdultSim extends Sim {
         this.isMarried = married ? "YES" : "NO";
     }
 
-    public String willMarry() {
+    public String getWillMarry() {
         return willMarry;
     }
 

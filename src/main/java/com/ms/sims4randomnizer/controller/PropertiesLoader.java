@@ -16,6 +16,24 @@ public class PropertiesLoader {
     private static int childrenToHave = -1;
     private static int isSingleSimMode = 0;
     private static int simAge = -1;
+    private static int aspiration = -1;
+    private static int job = -1;
+
+    public static int getJob() {
+        return job;
+    }
+
+    public static void setJob(int job) {
+        PropertiesLoader.job = job;
+    }
+
+    public static int getAspiration() {
+        return aspiration;
+    }
+
+    public static void setAspiration(int aspiration) {
+        PropertiesLoader.aspiration = aspiration;
+    }
 
     public static int getIsSingleSimMode() {
         return isSingleSimMode;

@@ -18,17 +18,8 @@ public class NewSimFormConfig {
     private boolean isMarried;
     private boolean willMarry;
 
-//    private static NewSimFormConfig instance;
-
     public NewSimFormConfig() {
     }
-
-//    public static NewSimFormConfig getInstance(){
-//        if (instance == null) {
-//            instance = new NewSimFormConfig();
-//        }
-//        return instance;
-//    }
 
     public int getGender() {
         return gender;

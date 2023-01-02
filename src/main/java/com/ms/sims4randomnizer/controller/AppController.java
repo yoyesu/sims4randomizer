@@ -8,6 +8,7 @@ import com.ms.sims4randomnizer.model.SimFactory;
 import com.ms.sims4randomnizer.model.StarterFormConfig;
 import com.ms.sims4randomnizer.model.dto.*;
 import com.ms.sims4randomnizer.model.enums.AgeGroup;
+import com.ms.sims4randomnizer.model.enums.Aspiration;
 import com.ms.sims4randomnizer.model.enums.Gender;
 import com.ms.sims4randomnizer.util.Randomizer;
 import com.ms.sims4randomnizer.view.Printer;
@@ -43,13 +44,13 @@ public class AppController {
         //get params from front-end --> IT'S THE REQUEST BODY
 
         //map params to properties loader
-        System.out.println("request body " + config.toString());
         PropertiesLoader.setIsSingleSimMode(1);
         PropertiesLoader.setGenderOfSim(config.getGender());
         PropertiesLoader.setDifficulty(config.getDifficulty());
-        System.out.println("Lifespan in config: " + config.getLifespan());
         PropertiesLoader.setLifeSpanType(config.getLifespan());
         PropertiesLoader.setSimAge(config.getAge());
+        PropertiesLoader.setAspiration(config.getAspiration());
+        PropertiesLoader.setJob(config.getJob());
 
         PropertiesLoader.loadConfiguration();
 

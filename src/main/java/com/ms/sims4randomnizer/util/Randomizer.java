@@ -32,12 +32,14 @@ public class Randomizer {
     }
 
     public static Job getRandomJob(){
-        int id = new Random().nextInt(Job.values().length);
+        int job = PropertiesLoader.getJob();
+        int id = job == -1? new Random().nextInt(Job.values().length) : job;
         return Job.values()[id];
     }
 
     public static TeenJob getRandomTeenJob(){
-        int id = new Random().nextInt(TeenJob.values().length);
+        int job = PropertiesLoader.getJob();
+        int id = job == -1? new Random().nextInt(TeenJob.values().length) : job;
         return TeenJob.values()[id];
     }
 
@@ -115,12 +117,14 @@ public class Randomizer {
     }
 
     public static Aspiration getAspiration(){
-        int id = new Random().nextInt(Aspiration.values().length);
+        int aspiration = PropertiesLoader.getAspiration();
+        int id = aspiration == -1 ? new Random().nextInt(Aspiration.values().length) : aspiration;
         return Aspiration.values()[id];
     }
 
     public static ChildAspiration getChildAspiration(){
-        int id = new Random().nextInt(ChildAspiration.values().length);
+        int aspiration = PropertiesLoader.getAspiration();
+        int id = aspiration == -1 ? new Random().nextInt(ChildAspiration.values().length) : aspiration;
         return ChildAspiration.values()[id];
     }
 
