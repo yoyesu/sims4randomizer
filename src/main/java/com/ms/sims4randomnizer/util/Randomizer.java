@@ -93,7 +93,7 @@ public class Randomizer {
         int bound = 9;
         int sims;
 
-        if (numberOfStarterSims == 0){//0 means the user wants it random
+        if (numberOfStarterSims == -1){//0 means the user wants it random
             switch (difficulty){
                 case 1 -> bound = 4;
                 case 2 -> {

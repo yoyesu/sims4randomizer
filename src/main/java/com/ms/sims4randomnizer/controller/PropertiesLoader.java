@@ -132,7 +132,7 @@ public class PropertiesLoader {
     private static void setConfiguration(int difficultyLevel, int lifeSpan, int numberOfSimsToStartWith, int willWed, int gender, int married, int children, int age) {
         difficulty = difficultyLevel > 0 && difficultyLevel <= 3 ? difficultyLevel : new Random().nextInt(1, 4);
         lifeSpanType = lifeSpan >= 0 && lifeSpan <= 2 ? lifeSpan : new Random().nextInt(0, 3);
-        numberOfStarterSims = numberOfSimsToStartWith > 0 && numberOfSimsToStartWith <= 8 ? numberOfSimsToStartWith : 0;
+        numberOfStarterSims = numberOfSimsToStartWith > 0 && numberOfSimsToStartWith <= 8 ? numberOfSimsToStartWith : -1;
 
         if(isSingleSimMode == 1){
 
