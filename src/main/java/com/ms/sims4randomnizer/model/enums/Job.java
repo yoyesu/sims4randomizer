@@ -1,32 +1,39 @@
 package com.ms.sims4randomnizer.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ms.sims4randomnizer.util.Randomizer;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Job {
 
-    CULINARY(Randomizer.getRandomJobLevel()),
-    HOUSEPERSON(0),
-    ASTRONAUT(Randomizer.getRandomJobLevel()),
-    ARTIST(Randomizer.getRandomJobLevel()),
-    ATHLETE(Randomizer.getRandomJobLevel()),
-    BUSINESS(Randomizer.getRandomJobLevel()),
-    CRIMINAL(Randomizer.getRandomJobLevel()),
-    ENTERTAINER(Randomizer.getRandomJobLevel()),
-    FREELANCER(Randomizer.getRandomJobLevel()),
-    SECRET_AGENT(Randomizer.getRandomJobLevel()),
-    TECH_GURU(Randomizer.getRandomJobLevel()),
-    WRITER(Randomizer.getRandomJobLevel())
+    CULINARY(Randomizer.getRandomJobLevel(), "Culinary"),
+    HOUSEPERSON(0, "No work"),
+    ASTRONAUT(Randomizer.getRandomJobLevel(), "Astronaut"),
+    ARTIST(Randomizer.getRandomJobLevel(), "Artist"),
+    ATHLETE(Randomizer.getRandomJobLevel(), "Athlete"),
+    BUSINESS(Randomizer.getRandomJobLevel(), "Business"),
+    CRIMINAL(Randomizer.getRandomJobLevel(), "Criminal"),
+    ENTERTAINER(Randomizer.getRandomJobLevel(), "Entertainer"),
+    FREELANCER(Randomizer.getRandomJobLevel(), "Freelancer"),
+    SECRET_AGENT(Randomizer.getRandomJobLevel(), "Secret Agent"),
+    TECH_GURU(Randomizer.getRandomJobLevel(), "Tech Guru"),
+    WRITER(Randomizer.getRandomJobLevel(), "Writer")
     ;
 
-    private int level;
+    public int level;
+    public String jobName;
 
-    Job(int level) {
+    Job(int level, String jobName) {
+
         this.level = level;
+        this.jobName = jobName;
     }
 
     public int getLevel() {
         return level;
     }
 
-
+    public String getJobName() {
+        return jobName;
+    }
 }
