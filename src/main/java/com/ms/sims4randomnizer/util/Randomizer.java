@@ -2,6 +2,7 @@ package com.ms.sims4randomnizer.util;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.ms.sims4randomnizer.controller.PropertiesLoader;
+import com.ms.sims4randomnizer.model.NewSimFormConfig;
 import com.ms.sims4randomnizer.model.StarterFormConfig;
 import com.ms.sims4randomnizer.model.enums.*;
 import java.util.*;
@@ -9,6 +10,12 @@ import java.util.*;
 public class Randomizer {
 
     public static int getRandomJobLevel(){
+        int level = PropertiesLoader.getJobLevel();
+
+        if(level != -1){
+            return level; //to skip the switch loop if the user already decided the job level
+        }
+
         int difficulty = PropertiesLoader.getDifficulty();
         int bound = 11;
         int origin = 1;
@@ -20,6 +27,7 @@ public class Randomizer {
             }
             case 3 -> origin = 5;
         }
+
         return new Random().nextInt(origin, bound);
     }
 
@@ -34,7 +42,9 @@ public class Randomizer {
     public static Job getRandomJob(){
         int job = PropertiesLoader.getJob();
         int id = job == -1? new Random().nextInt(Job.values().length) : job;
-        return Job.values()[id];
+        Job generatedJob = Job.values()[id];
+        generatedJob.setLevel(getRandomJobLevel());
+        return generatedJob;
     }
 
     public static TeenJob getRandomTeenJob(){
@@ -129,7 +139,8 @@ public class Randomizer {
     }
 
     public static SexualPreference getSexualPreference(){
-        int id = new Random().nextInt(SexualPreference.values().length);
+        int sexuality = PropertiesLoader.getSexuality();
+        int id = sexuality == -1 ? new Random().nextInt(SexualPreference.values().length) : sexuality;
         return SexualPreference.values()[id];
     }
 
@@ -180,50 +191,55 @@ public class Randomizer {
     }
 
     public static Object[] getSkillsToMax(){
-        int difficulty = PropertiesLoader.getDifficulty();
-        LifeSpan lifeSpanType = LifeSpan.values()[PropertiesLoader.getLifeSpanType()];
+        int numberOfSkillsToMax = PropertiesLoader.getMaxNumberOfSkills(); //this sets the max number of skills to complete
         int origin = 0;
         int bound = Skill.values().length;
 
-        switch (lifeSpanType) {
-            case SHORT -> {//short
-                if (difficulty == 1) {
-                    bound = 4;
-                } else if (difficulty == 2) {
-                    origin = 1;
-                    bound = 6;
-                } else if (difficulty == 3) {
-                    origin = 3;
-                    bound = 13;
+        if(numberOfSkillsToMax == -1) {
+            int difficulty = PropertiesLoader.getDifficulty();
+            LifeSpan lifeSpanType = LifeSpan.values()[PropertiesLoader.getLifeSpanType()];
+
+            switch (lifeSpanType) {
+                case SHORT -> {//short
+                    if (difficulty == 1) {
+                        bound = 4;
+                    } else if (difficulty == 2) {
+                        origin = 1;
+                        bound = 6;
+                    } else if (difficulty == 3) {
+                        origin = 3;
+                        bound = 13;
+                    }
                 }
-            }
-            case NORMAL -> {//med
-                if (difficulty == 1) {
-                    bound = 7;
-                } else if (difficulty == 2) {
-                    origin = 2;
-                    bound = 9;
-                } else if (difficulty == 3) {
-                    origin = 5;
-                    bound = 16;
+                case NORMAL -> {//med
+                    if (difficulty == 1) {
+                        bound = 7;
+                    } else if (difficulty == 2) {
+                        origin = 2;
+                        bound = 9;
+                    } else if (difficulty == 3) {
+                        origin = 5;
+                        bound = 16;
+                    }
+                }
+
+                case LONG -> { //long
+                    if (difficulty == 1) {
+                        bound = 11;
+                    } else if (difficulty == 2) {
+                        origin = 3;
+                        bound = 13;
+                    } else if (difficulty == 3) {
+                        origin = 7;
+                    }
                 }
             }
 
-            case LONG -> { //long
-                if (difficulty == 1) {
-                    bound = 11;
-                } else if (difficulty == 2) {
-                    origin = 3;
-                    bound = 13;
-                } else if (difficulty == 3) {
-                    origin = 7;
-                }
-            }
+            numberOfSkillsToMax = new Random().nextInt(origin, bound);
         }
 
-        int numberOfSkills = new Random().nextInt(origin, bound); //this sets the max number of skills to complete
         Set<Skill> skills = new HashSet<>();
-        for(int i = 0; i <= numberOfSkills; i++){
+        for(int i = 0; i < numberOfSkillsToMax; i++){
             if(!skills.add(Skill.values()[new Random().nextInt(Skill.values().length)])){ //this picks skills until the max number of skills is reached
                 i--;
             }
@@ -260,14 +276,14 @@ public class Randomizer {
 
     public static boolean getMarriageStatus(){
         int alreadyMarried = PropertiesLoader.getAlreadyMarried();
-        int id = alreadyMarried == 0 ? new Random().nextInt(1,2) : alreadyMarried;
-        // 1 married, 2 single
-        return id == 1;
+        int id = alreadyMarried == -1 ? new Random().nextInt(2) : alreadyMarried;
+        // 0 married, 1 single
+        return id == 0;
     }
 
     public static boolean getNewWedding(){
         int wedding = PropertiesLoader.getWedding();
-        int id = wedding == 0 ? new Random().nextInt(2) : wedding;
+        int id = wedding == -1 ? new Random().nextInt(2) : wedding;
         // 0 sim will marry if single or will marry AGAIN if already married, 1 will not marry again or at all
         return id == 0;
     }

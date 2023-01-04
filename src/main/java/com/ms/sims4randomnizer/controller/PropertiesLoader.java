@@ -1,8 +1,5 @@
 package com.ms.sims4randomnizer.controller;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Properties;
 import java.util.Random;
 
 public class PropertiesLoader {
@@ -10,14 +7,41 @@ public class PropertiesLoader {
     private static int difficulty;
     private static int lifeSpanType;
     private static int numberOfStarterSims;
-    private static int wedding = 0;
+    private static int wedding = -1;
     private static int genderOfSim = -1;
-    private static int alreadyMarried = 0;
+    private static int alreadyMarried = -1;
     private static int childrenToHave = -1;
     private static int isSingleSimMode = 0;
     private static int simAge = -1;
     private static int aspiration = -1;
     private static int job = -1;
+    private static int jobLevel = -1;
+    private static int sexuality = -1;
+    private static int maxNumberOfSkills = -1;
+
+    public static int getMaxNumberOfSkills() {
+        return maxNumberOfSkills;
+    }
+
+    public static void setMaxNumberOfSkills(int totalNumberOfSkills) {
+        maxNumberOfSkills = totalNumberOfSkills;
+    }
+
+    public static int getJobLevel() {
+        return jobLevel;
+    }
+
+    public static void setJobLevel(int levelOfJob) {
+        jobLevel = levelOfJob;
+    }
+
+    public static int getSexuality() {
+        return sexuality;
+    }
+
+    public static void setSexuality(int sexuality) {
+        PropertiesLoader.sexuality = sexuality;
+    }
 
     public static int getJob() {
         return job;
@@ -108,23 +132,19 @@ public class PropertiesLoader {
     }
 
     public static void loadConfiguration() {
-        Properties properties = new Properties();
-        Properties singleSimProperties = new Properties();
         try {
-            properties.load(new FileReader("src/main/resources/configuration.properties"));
-            singleSimProperties.load(new FileReader("src/main/resources/singleSimConfig.properties"));
             int difficultyLevel = difficulty;
             int lifeSpan = lifeSpanType;
             int starterSims = numberOfStarterSims;
             int age = simAge;
-            int wedding = Integer.parseInt(singleSimProperties.getProperty("wedding"));
-            int gender = PropertiesLoader.genderOfSim;
-            int married = Integer.parseInt(singleSimProperties.getProperty("alreadyMarried"));
-            int children = Integer.parseInt(singleSimProperties.getProperty("childrenToHave"));
+            int wedding = PropertiesLoader.wedding;
+            int gender = genderOfSim;
+            int married = alreadyMarried;
+            int children = childrenToHave;
             setConfiguration(difficultyLevel, lifeSpan, starterSims, wedding, gender, married, children, age);
 
 
-        } catch (IOException | NumberFormatException e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         }
     }
@@ -136,15 +156,15 @@ public class PropertiesLoader {
 
         if(isSingleSimMode == 1){
 
-            wedding = willWed > 0 && willWed < 3 ? willWed : 0;
+            wedding = willWed >= 0 && willWed < 2 ? willWed : -1;
             genderOfSim = gender >= 0 && gender < 2 ? gender : -1;
-            alreadyMarried = married > 0 && married < 3 ? married : 0;
+            alreadyMarried = married >= 0 && married < 2 ? married : -1;
             childrenToHave = children >= 0 ? children : -1;
             simAge = age >= 0 ? age : -1;
         } else {
-            wedding = 0;
+            wedding = -1;
             genderOfSim = -1;
-            alreadyMarried = 0;
+            alreadyMarried = -1;
             childrenToHave = -1;
             simAge = -1;
         }

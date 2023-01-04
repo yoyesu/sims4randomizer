@@ -1,12 +1,11 @@
 package com.ms.sims4randomnizer.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.ms.sims4randomnizer.model.NewSimFormConfig;
-import com.ms.sims4randomnizer.model.StarterFormConfig;
 import com.ms.sims4randomnizer.model.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -25,6 +24,12 @@ public class AppController {
         PropertiesLoader.setSimAge(config.getAge());
         PropertiesLoader.setAspiration(config.getAspiration());
         PropertiesLoader.setJob(config.getJob());
+        PropertiesLoader.setChildrenToHave(config.getChildren());
+        PropertiesLoader.setAlreadyMarried(config.getIsMarried());
+        PropertiesLoader.setWedding(config.getWillMarry());
+        PropertiesLoader.setSexuality(config.getSexuality());
+        PropertiesLoader.setJobLevel(config.getJobLevel());
+        PropertiesLoader.setMaxNumberOfSkills(config.getSkillsArrayLength());
 
         PropertiesLoader.loadConfiguration();
 

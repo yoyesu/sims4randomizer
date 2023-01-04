@@ -14,9 +14,10 @@ public class NewSimFormConfig {
     private int jobLevel;
     private int sexuality;
     private int[] skills;
+    private int skillsArrayLength;
     private int children;
-    private boolean isMarried;
-    private boolean willMarry;
+    private int isMarried;
+    private int willMarry;
 
     public NewSimFormConfig() {
     }
@@ -85,12 +86,16 @@ public class NewSimFormConfig {
         return children;
     }
 
-    public boolean isMarried() {
+    public int getIsMarried() {
         return isMarried;
     }
 
-    public boolean isWillMarry() {
+    public int getWillMarry() {
         return willMarry;
+    }
+
+    public int getSkillsArrayLength() {
+        return skillsArrayLength;
     }
 
     @Override

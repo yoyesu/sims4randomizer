@@ -33,6 +33,10 @@ public enum Job {
         return level;
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public String getJobName() {
         return jobName;
     }
