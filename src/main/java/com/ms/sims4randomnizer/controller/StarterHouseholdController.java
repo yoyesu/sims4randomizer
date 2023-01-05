@@ -15,7 +15,7 @@ public class StarterHouseholdController {
     @PostMapping("/starter-household")
     public ResponseEntity<GameSave> submitStarterHouseholdForm(@RequestBody StarterNewSimFormConfig config) {
         //get params from front-end --> IT'S THE REQUEST BODY
-
+        PropertiesLoader.resetProperties();
         //map params to properties loader
         PropertiesLoader.setDifficulty(config.getDifficulty());
         PropertiesLoader.setLifeSpanType(config.getLifespan());

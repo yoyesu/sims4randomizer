@@ -121,4 +121,17 @@ public class PropertiesLoader {
     public static int getSimAge() {
         return simAge;
     }
+
+    public static void resetProperties(){
+        wedding = -1;
+        genderOfSim = -1;
+        alreadyMarried = -1;
+        childrenToHave = -1;
+        simAge = -1;
+        aspiration = -1;
+        job = -1;
+        jobLevel = -1;
+        sexuality = -1;
+        maxNumberOfSkills = -1;
+    }
 }
