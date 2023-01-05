@@ -15,6 +15,7 @@ public class ChildSim extends Sim{
         this.skillsToMax = skillsToMax;
     }
 
+    ////////////// GETTERS & SETTERS /////////////////
     public ChildAspiration getAspiration() {
         return aspiration;
     }
@@ -30,6 +31,8 @@ public class ChildSim extends Sim{
     public void setSkillsToMax(String[] skillsToMax) {
         this.skillsToMax = skillsToMax;
     }
+
+    ////////////////////// END GETTERS & SETTERS ////////////////////////////////
 
     @Override
     public Object[] getSkills() {

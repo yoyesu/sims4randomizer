@@ -65,10 +65,6 @@ public class AdultSim extends Sim {
         this.children = children;
     }
 
-//    public Object[] getSkillsToMax() {
-//        return skillsToMax;
-//    }
-
     @Override
     public Object[] getSkills() {
         return skillsToMax;
@@ -82,7 +78,7 @@ public class AdultSim extends Sim {
     }
 
     public void setMarried(boolean married) {
-        this.isMarried = married ? "YES" : "NO";
+        this.isMarried = married ? "Yes" : "No";
     }
 
     public String getWillMarry() {
@@ -90,7 +86,7 @@ public class AdultSim extends Sim {
     }
 
     public void setWillMarry(boolean willMarry) {
-        this.willMarry = willMarry ? "YES" : "NO";
+        this.willMarry = willMarry ? "Yes" : "No";
     }
 
     ///////////////////////////END getters & setters ////////////////////////////////////

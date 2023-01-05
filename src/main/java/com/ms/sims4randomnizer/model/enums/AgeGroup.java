@@ -11,15 +11,4 @@ public enum AgeGroup {
     AgeGroup(int id, String name){
         this.id = id;
         this.name = name;}
-
-
-    public static AgeGroup getAgeById(int id) {
-        AgeGroup[] ages = AgeGroup.values();
-        for(AgeGroup age : ages){
-            if(age.id == id){
-                return age;
-            }
-        }
-        return null;
-    }
 }

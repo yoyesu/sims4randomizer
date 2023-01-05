@@ -1,9 +1,8 @@
-package com.ms.sims4randomnizer.controller;
+package com.ms.sims4randomnizer.util;
 
 import com.ms.sims4randomnizer.model.dto.Household;
 import com.ms.sims4randomnizer.model.dto.Sim;
 import com.ms.sims4randomnizer.model.SimFactory;
-import com.ms.sims4randomnizer.util.Randomizer;
 
 import java.util.ArrayList;
 import java.util.List;

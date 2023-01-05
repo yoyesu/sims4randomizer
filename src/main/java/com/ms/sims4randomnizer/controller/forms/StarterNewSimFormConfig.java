@@ -1,8 +1,8 @@
-package com.ms.sims4randomnizer.model;
+package com.ms.sims4randomnizer.controller.forms;
 
 import java.util.Arrays;
 
-public class NewSimFormConfig {
+public class StarterNewSimFormConfig {
 
     private int difficulty;
     private int lifespan;
@@ -19,7 +19,7 @@ public class NewSimFormConfig {
     private int isMarried;
     private int willMarry;
 
-    public NewSimFormConfig() {
+    public StarterNewSimFormConfig() {
     }
 
     public int getGender() {

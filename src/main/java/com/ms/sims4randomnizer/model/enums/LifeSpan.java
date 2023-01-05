@@ -1,6 +1,13 @@
 package com.ms.sims4randomnizer.model.enums;
 
-public enum LifeSpan {
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-    SHORT, NORMAL, LONG
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+public enum LifeSpan {
+    SHORT("Short"), NORMAL("Normal"), LONG("Long");
+
+    public String spanName;
+    LifeSpan(String name){
+        spanName = name;
+    }
 }

@@ -1,9 +1,5 @@
 package com.ms.sims4randomnizer.util;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
-import com.ms.sims4randomnizer.controller.PropertiesLoader;
-import com.ms.sims4randomnizer.model.NewSimFormConfig;
-import com.ms.sims4randomnizer.model.StarterFormConfig;
 import com.ms.sims4randomnizer.model.enums.*;
 import java.util.*;
 
