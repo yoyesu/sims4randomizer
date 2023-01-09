@@ -18,6 +18,13 @@ public class EnumsController {
         return ResponseEntity.status(HttpStatus.OK).body(ages);
     }
 
+    @GetMapping("/gender")
+    public ResponseEntity<Gender[]> getGenderList() {
+
+        Gender[] genders = Gender.values();
+        return ResponseEntity.status(HttpStatus.OK).body(genders);
+    }
+
     @GetMapping("/aspirations")
     public ResponseEntity<Aspiration[]> getAspirationList() {
 
