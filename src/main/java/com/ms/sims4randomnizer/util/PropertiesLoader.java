@@ -63,7 +63,7 @@ public class PropertiesLoader {
     }
 
     public static int getLifeSpanType() {
-        return lifeSpanType == -1 ? new Random().nextInt(0, 3) : lifeSpanType;
+        return lifeSpanType;
     }
 
     public static int getNumberOfStarterSims() {
