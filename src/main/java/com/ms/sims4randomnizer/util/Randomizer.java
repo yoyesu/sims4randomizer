@@ -27,14 +27,6 @@ public class Randomizer {
         return new Random().nextInt(origin, bound);
     }
 
-    public static int getRandomJobLevel(int bound, int origin){
-        //not accepting different limits at the moment, will do at some point
-        bound = 11;
-        origin = 1;
-
-        return new Random().nextInt(origin, bound);
-    }
-
     public static Job getRandomJob(){
         int job = PropertiesLoader.getJob();
         int id = job == -1? new Random().nextInt(Job.values().length) : job;
@@ -69,22 +61,11 @@ public class Randomizer {
         return AgeGroup.values()[id];
     }
 
-    public static AgeGroup getRandomAgeGroup(){
-        // USER COULD PASS IN ORIGIN AND/OR BOUND
-        int origin = 0;
-        int bound = AgeGroup.values().length;
-        return AgeGroup.values()[new Random().nextInt(origin, bound)];
-    }
-
     public static LifeSpan getLifeSpan(){
-//        int id = new Random().nextInt(LifeSpan.values().length);
-//        int lifeSpanType = ;
-//        switch (lifeSpanType){
-//            case 1 -> id = 0;
-//            case 2 -> id = 1;
-//            case 3 -> id = 2;
-//        }
-        return LifeSpan.values()[PropertiesLoader.getLifeSpanType()];
+        int rawLifespan = PropertiesLoader.getLifeSpanType();
+        int id = rawLifespan == -1 ? new Random().nextInt(0, 3) : rawLifespan;
+
+        return LifeSpan.values()[id];
     }
 
     public static LifeSpan getIndependentLifeSpan(){
@@ -99,7 +80,7 @@ public class Randomizer {
         int bound = 9;
         int sims;
 
-        if (numberOfStarterSims == -1){//0 means the user wants it random
+        if (numberOfStarterSims == -1){//-1 means the user wants it random
             switch (difficulty){
                 case 1 -> bound = 4;
                 case 2 -> {
