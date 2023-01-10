@@ -7,8 +7,8 @@ public enum ToddlerSkills {
 
     COMMUNICATION("Communication"), IMAGINATION("Imagination"), MOVEMENT("Movement"), POTTY("Potty"), THINKING("Thinking");
 
-    public String skillName;
+    public String name;
     ToddlerSkills(String name){
-        skillName = name;
+        this.name = name;
     }
 }

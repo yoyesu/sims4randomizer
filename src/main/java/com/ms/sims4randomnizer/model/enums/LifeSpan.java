@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum LifeSpan {
     SHORT("Short"), NORMAL("Normal"), LONG("Long");
 
-    public String spanName;
+    public String name;
     LifeSpan(String name){
-        spanName = name;
+        this.name = name;
     }
 }

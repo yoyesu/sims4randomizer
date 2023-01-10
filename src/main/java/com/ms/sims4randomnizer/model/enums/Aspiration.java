@@ -9,12 +9,12 @@ public enum Aspiration {
     RENAISSANCE_SIM("Renaissance sim"), NERD_BRAIN("Nerd brain"), COMPUTER_WHIZ("Computer whiz"), SERIAL_ROMANTIC("Serial romantic"), SOULMATE("Soulmate"), FREELANCE_BOTANIST("Freelance botanist"), CURATOR("Curator"), ANGLING_ACE("Angling ace"),
     JOKE_STAR("Joke star"), PARTY_ANIMAL("Party animal"), FRIEND_OF_WORLD("Friend of the world"), NEIGHBORHOOD_CONFIDANTE("Neighborhood confidante");
 
-    public String aspirationName;
+    public String name;
 
     Aspiration(String name){
-        aspirationName = name;
+        this.name = name;
     }
-    public String getAspirationName() {
-        return aspirationName;
+    public String getName() {
+        return name;
     }
 }

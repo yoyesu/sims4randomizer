@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum ChildSkills {
     CREATIVITY("Creativity"), MENTAL("Mental"), MOTOR("Motor"), SOCIAL("Social");
 
-    public String skillName;
+    public String name;
     ChildSkills(String name){
-        skillName = name;
+        this.name = name;
     }
 }

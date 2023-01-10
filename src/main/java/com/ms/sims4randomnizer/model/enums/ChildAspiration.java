@@ -7,8 +7,8 @@ public enum ChildAspiration {
 
     ARTISTIC_PRODIGY("Artistic prodigy"), RAMBUNCTIOUS_SCAMP("Rambunctious scamp"), SOCIAL_BUTTERFLY("Social butterfly"), WHIZ_KID("Whiz kid");
 
-    public String aspirationName;
+    public String name;
     ChildAspiration(String name){
-        aspirationName = name;
+        this.name = name;
     }
 }

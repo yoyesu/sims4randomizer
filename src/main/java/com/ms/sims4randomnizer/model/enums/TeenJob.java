@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum TeenJob {
     BARISTA("Barista"), BABYSITTER("Babysitter"), FAST_FOOD_EMPLOYEE("Fast food employee"), MANUAL_LABORER("Manual laborer"), RETAIL("Retail employee");
 
-    public String jobName;
+    public String name;
     TeenJob(String name){
-        jobName = name;
+        this.name = name;
     }
 }

@@ -21,12 +21,12 @@ public enum Job {
     ;
 
     public int level;
-    public String jobName;
+    public String name;
 
     Job(int level, String jobName) {
 
         this.level = level;
-        this.jobName = jobName;
+        this.name = jobName;
     }
 
     public int getLevel() {
@@ -37,7 +37,7 @@ public enum Job {
         this.level = level;
     }
 
-    public String getJobName() {
-        return jobName;
+    public String getName() {
+        return name;
     }
 }

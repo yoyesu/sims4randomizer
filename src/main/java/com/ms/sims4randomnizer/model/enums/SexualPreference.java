@@ -6,9 +6,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum SexualPreference {
     STRAIGHT("Straight"), GAY("Gay"), BISEXUAL("Bisexual");
 
-    public String sexualityName;
+    public String name;
 
     SexualPreference(String name){
-        sexualityName = name;
+        this.name = name;
     }
 }
