@@ -59,7 +59,7 @@ public class PropertiesLoader {
     }
 
     public static int getDifficulty() {
-        return difficulty == 0 ? new Random().nextInt(1, 4) : difficulty;
+        return difficulty;
     }
 
     public static int getLifeSpanType() {

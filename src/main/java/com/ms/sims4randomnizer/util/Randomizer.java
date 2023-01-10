@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Randomizer {
     private static int lifespan;
+    public static Difficulty difficulty = getDifficulty();
 
     public static int getRandomJobLevel(){
         int level = PropertiesLoader.getJobLevel();
@@ -13,16 +14,16 @@ public class Randomizer {
             return level; //to skip the switch loop if the user already decided the job level
         }
 
-        int difficulty = PropertiesLoader.getDifficulty();
+//        int difficulty = PropertiesLoader.getDifficulty();
         int bound = 11;
         int origin = 1;
         switch (difficulty){
-            case 1 -> bound = 4;
-            case 2 -> {
+            case EASY -> bound = 4;
+            case NORMAL -> {
                 origin = 3;
                 bound = 8;
             }
-            case 3 -> origin = 5;
+            case HARD -> origin = 5;
         }
 
         return new Random().nextInt(origin, bound);
@@ -43,17 +44,17 @@ public class Randomizer {
     }
 
     public static AgeGroup getRandomAgeGroup(int starterSims){
-        int difficulty = PropertiesLoader.getDifficulty();
+//        int difficulty = PropertiesLoader.getDifficulty();
         int age = PropertiesLoader.getSimAge();
         int origin = 0;
         int bound = AgeGroup.values().length;
-        if(starterSims == 1 && (difficulty == 1 || difficulty == 2) || difficulty == 1){
+        if(starterSims == 1 && (difficulty == Difficulty.EASY || difficulty == Difficulty.NORMAL) || difficulty == Difficulty.EASY){
             origin = AgeGroup.YOUNG_ADULT.ordinal();
             bound = AgeGroup.ELDERLY.ordinal();
-        } else if (starterSims == 1 && difficulty == 3){
+        } else if (starterSims == 1 && difficulty == Difficulty.HARD){
             origin = AgeGroup.ELDERLY.ordinal();
             bound = AgeGroup.ELDERLY.ordinal() +1;
-        } else if(starterSims > 1 && difficulty == 2){
+        } else if(starterSims > 1 && difficulty == Difficulty.NORMAL){
             origin = AgeGroup.YOUNG_ADULT.ordinal();
             bound = AgeGroup.ELDERLY.ordinal() +1;
         }
@@ -70,7 +71,7 @@ public class Randomizer {
     }
 
     public static int getNumberOfStarterSims(){
-        int difficulty = PropertiesLoader.getDifficulty();
+//        int difficulty = PropertiesLoader.getDifficulty();
         int numberOfStarterSims = PropertiesLoader.getNumberOfStarterSims();
         int origin = 1;
         int bound = 9;
@@ -78,12 +79,12 @@ public class Randomizer {
 
         if (numberOfStarterSims == -1){//-1 means the user wants it random
             switch (difficulty){
-                case 1 -> bound = 4;
-                case 2 -> {
+                case EASY -> bound = 4;
+                case NORMAL -> {
                     origin = 3;
                     bound = 6;
                 }
-                case 3 -> origin = 4;
+                case HARD -> origin = 4;
             }
             sims = new Random().nextInt(origin,bound);
         } else {
@@ -118,41 +119,41 @@ public class Randomizer {
     }
 
     public static int getNumberOfChildren(){
-        int difficulty = PropertiesLoader.getDifficulty();
+//        int difficulty = PropertiesLoader.getDifficulty();
         LifeSpan lifeSpanType = LifeSpan.values()[lifespan];
         int bound = 10;
         int origin = 0;
         switch (lifeSpanType){
             case SHORT -> {//short
-                if(difficulty == 1){
+                if(difficulty == Difficulty.EASY){
                     bound = 3;
-                } else if (difficulty == 2) {
+                } else if (difficulty == Difficulty.NORMAL) {
                     origin = 1;
                     bound = 5;
-                } else if (difficulty == 3){
+                } else if (difficulty == Difficulty.HARD){
                     origin = 2;
                     bound = 7;
                 }
             }
             case NORMAL -> {//med
-                if(difficulty == 1){
+                if(difficulty == Difficulty.EASY){
                     bound = 6;
-                } else if (difficulty == 2) {
+                } else if (difficulty == Difficulty.NORMAL) {
                     origin = 1;
                     bound = 7;
-                } else if (difficulty == 3){
+                } else if (difficulty == Difficulty.HARD){
                     origin = 3;
                     bound = 8;
                 }
             }
 
             case LONG -> { //long
-                if(difficulty == 1){
+                if(difficulty == Difficulty.EASY){
                     bound = 4;
-                } else if (difficulty == 2) {
+                } else if (difficulty == Difficulty.NORMAL) {
                     origin = 1;
                     bound = 6;
-                } else if (difficulty == 3){
+                } else if (difficulty == Difficulty.HARD){
                     origin = 5;
                 }
             }
@@ -169,41 +170,41 @@ public class Randomizer {
         int bound = Skill.values().length;
 
         if(numberOfSkillsToMax == -1) {
-            int difficulty = PropertiesLoader.getDifficulty();
+//            int difficulty = PropertiesLoader.getDifficulty();
 
             LifeSpan lifeSpanType = LifeSpan.values()[lifespan];
 
             switch (lifeSpanType) {
                 case SHORT -> {//short
-                    if (difficulty == 1) {
+                    if (difficulty == Difficulty.EASY) {
                         bound = 4;
-                    } else if (difficulty == 2) {
+                    } else if (difficulty == Difficulty.NORMAL) {
                         origin = 1;
                         bound = 6;
-                    } else if (difficulty == 3) {
+                    } else if (difficulty == Difficulty.HARD) {
                         origin = 3;
                         bound = 13;
                     }
                 }
                 case NORMAL -> {//med
-                    if (difficulty == 1) {
+                    if (difficulty == Difficulty.EASY) {
                         bound = 7;
-                    } else if (difficulty == 2) {
+                    } else if (difficulty == Difficulty.NORMAL) {
                         origin = 2;
                         bound = 9;
-                    } else if (difficulty == 3) {
+                    } else if (difficulty == Difficulty.HARD) {
                         origin = 5;
                         bound = 16;
                     }
                 }
 
                 case LONG -> { //long
-                    if (difficulty == 1) {
+                    if (difficulty == Difficulty.EASY) {
                         bound = 11;
-                    } else if (difficulty == 2) {
+                    } else if (difficulty == Difficulty.NORMAL) {
                         origin = 3;
                         bound = 13;
-                    } else if (difficulty == 3) {
+                    } else if (difficulty == Difficulty.HARD) {
                         origin = 7;
                     }
                 }
@@ -260,5 +261,10 @@ public class Randomizer {
         int id = wedding == -1 ? new Random().nextInt(2) : wedding;
         // 0 sim will marry if single or will marry AGAIN if already married, 1 will not marry again or at all
         return id == 0;
+    }
+
+    public static Difficulty getDifficulty() {
+        int difficultyLevel = PropertiesLoader.getDifficulty();
+        return difficulty = difficultyLevel == -1 ? Difficulty.values()[new Random().nextInt(Difficulty.values().length)] : Difficulty.values()[difficultyLevel];
     }
 }
