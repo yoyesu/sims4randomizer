@@ -12,6 +12,7 @@ public class Sim {
     protected Gender gender;
     protected AgeGroup ageGroup;
     protected Object[] skills;
+    protected boolean isHeir;
 
     public Sim(Gender gender, AgeGroup ageGroup) {
         this.gender = gender;
@@ -53,6 +54,14 @@ public class Sim {
     public Object[] getSkills() {
 
         return skills;
+    }
+
+    public boolean isHeir() {
+        return isHeir;
+    }
+
+    public void setHeir(boolean heir) {
+        isHeir = heir;
     }
 
     public static Class<? extends Sim> getChildClass(Sim sim){

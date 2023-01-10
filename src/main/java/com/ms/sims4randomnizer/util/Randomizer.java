@@ -267,4 +267,11 @@ public class Randomizer {
         int difficultyLevel = PropertiesLoader.getDifficulty();
         return difficulty = difficultyLevel == -1 ? Difficulty.values()[new Random().nextInt(Difficulty.values().length)] : Difficulty.values()[difficultyLevel];
     }
+
+    public static boolean isHeir(){
+        int randomNumber = new Random().nextInt(2);
+        //0 == true -- sim is heir
+        //1 == false -- sim is not heir
+        return randomNumber == 0;
+    }
 }
