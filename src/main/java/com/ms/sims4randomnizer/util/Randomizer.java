@@ -4,6 +4,7 @@ import com.ms.sims4randomnizer.model.enums.*;
 import java.util.*;
 
 public class Randomizer {
+    private static int lifespan;
 
     public static int getRandomJobLevel(){
         int level = PropertiesLoader.getJobLevel();
@@ -63,14 +64,9 @@ public class Randomizer {
 
     public static LifeSpan getLifeSpan(){
         int rawLifespan = PropertiesLoader.getLifeSpanType();
-        int id = rawLifespan == -1 ? new Random().nextInt(0, 3) : rawLifespan;
+        lifespan = rawLifespan == -1 ? new Random().nextInt(0, 3) : rawLifespan;
 
-        return LifeSpan.values()[id];
-    }
-
-    public static LifeSpan getIndependentLifeSpan(){
-        int id = new Random().nextInt(LifeSpan.values().length);
-        return LifeSpan.values()[id];
+        return LifeSpan.values()[lifespan];
     }
 
     public static int getNumberOfStarterSims(){
@@ -123,7 +119,7 @@ public class Randomizer {
 
     public static int getNumberOfChildren(){
         int difficulty = PropertiesLoader.getDifficulty();
-        LifeSpan lifeSpanType = LifeSpan.values()[PropertiesLoader.getLifeSpanType()];
+        LifeSpan lifeSpanType = LifeSpan.values()[lifespan];
         int bound = 10;
         int origin = 0;
         switch (lifeSpanType){
@@ -174,7 +170,8 @@ public class Randomizer {
 
         if(numberOfSkillsToMax == -1) {
             int difficulty = PropertiesLoader.getDifficulty();
-            LifeSpan lifeSpanType = LifeSpan.values()[PropertiesLoader.getLifeSpanType()];
+
+            LifeSpan lifeSpanType = LifeSpan.values()[lifespan];
 
             switch (lifeSpanType) {
                 case SHORT -> {//short
