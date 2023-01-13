@@ -7,10 +7,9 @@ import com.amazonaws.serverless.proxy.spring.SpringLambdaContainerHandler;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.ms.sims4randomnizer.Sims4RandomnizerApplication;
+import org.springframework.boot.json.JsonParser;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 public class LambdaStreamHandler implements RequestStreamHandler {
 
