@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.ms</groupId>
     <artifactId>Sims4Randomnizer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1-SNAPSHOT</version>
     <name>Sims4Randomnizer</name>
     <description>Sims4Randomnizer</description>
     <properties>
