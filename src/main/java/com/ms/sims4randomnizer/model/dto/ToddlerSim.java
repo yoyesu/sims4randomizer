@@ -1,6 +1,6 @@
 package com.ms.sims4randomnizer.model.dto;
 
-import com.ms.sims4randomnizer.model.enums.AgeGroup;
+import com.ms.sims4randomnizer.model.db_dtos.Age;
 import com.ms.sims4randomnizer.util.Randomizer;
 
 import java.util.Arrays;
@@ -9,9 +9,9 @@ public class ToddlerSim extends Sim {
 
     private final Object[] skillsToMax;
 
-    public ToddlerSim(Object[] skillsToMax) {
+    public ToddlerSim(Age ageGroup, Object[] skillsToMax) {
 
-        super(Randomizer.getGender(), AgeGroup.TODDLER);
+        super(Randomizer.getGender(), ageGroup);
         this.skillsToMax = skillsToMax;
     }
 

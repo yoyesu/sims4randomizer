@@ -1,21 +1,21 @@
 package com.ms.sims4randomnizer.model.dto;
 
-import com.ms.sims4randomnizer.model.enums.AgeGroup;
-import com.ms.sims4randomnizer.model.enums.Aspiration;
-import com.ms.sims4randomnizer.model.enums.SexualPreference;
-import com.ms.sims4randomnizer.model.enums.TeenJob;
+import com.ms.sims4randomnizer.model.db_dtos.Age;
+import com.ms.sims4randomnizer.model.db_dtos.Aspiration;
+import com.ms.sims4randomnizer.model.db_dtos.Job;
+import com.ms.sims4randomnizer.model.db_dtos.SexualPreference;
 import com.ms.sims4randomnizer.util.Randomizer;
 
 import java.util.Arrays;
 
 public class TeenSim extends Sim {
     private Aspiration aspiration;
-    private TeenJob job;
+    private Job job;
     private SexualPreference sexualPreference;
     private Object[] skillsToMax;
 
-    public TeenSim(Aspiration aspiration, TeenJob job, SexualPreference sexualPreference, Object[] skillsToMax) {
-        super(Randomizer.getGender(), AgeGroup.TEEN);
+    public TeenSim(Age ageGroup, Aspiration aspiration, Job job, SexualPreference sexualPreference, Object[] skillsToMax) {
+        super(Randomizer.getGender(),ageGroup);
         this.aspiration = aspiration;
         this.job = job;
         this.sexualPreference = sexualPreference;
@@ -26,7 +26,7 @@ public class TeenSim extends Sim {
         return aspiration;
     }
 
-    public TeenJob getJob() {
+    public Job getJob() {
         return job;
     }
 

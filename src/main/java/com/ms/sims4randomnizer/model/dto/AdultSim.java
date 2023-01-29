@@ -1,9 +1,6 @@
 package com.ms.sims4randomnizer.model.dto;
 
-import com.ms.sims4randomnizer.model.enums.AgeGroup;
-import com.ms.sims4randomnizer.model.enums.Aspiration;
-import com.ms.sims4randomnizer.model.enums.Job;
-import com.ms.sims4randomnizer.model.enums.SexualPreference;
+import com.ms.sims4randomnizer.model.db_dtos.*;
 import com.ms.sims4randomnizer.util.Randomizer;
 
 import java.util.Arrays;
@@ -17,10 +14,10 @@ public class AdultSim extends Sim {
     private String isMarried;
     private String willMarry;
 
-    public AdultSim(AgeGroup ageGroup, Aspiration aspiration,
+    public AdultSim(Age ageGroup, Aspiration aspiration,
                     Job job, SexualPreference sexualPreference, int children, Object[] skillsToMax,
                     boolean isMarried, boolean willMarry) {
-        super(Randomizer.getGender(),ageGroup);
+        super(new Gender(),ageGroup);
         this.ageGroup = ageGroup;
         this.aspiration = aspiration;
         this.job = job;
@@ -98,7 +95,7 @@ public class AdultSim extends Sim {
                 + "\nGender: " + gender
                 + "\nAspiration: " + aspiration
                 + "\nJob: " + job
-                + "\nJob level: " + job.getLevel()
+//                + "\nJob level: " + job.getLevel()
                 + "\nSexual Preference: " + sexualPreference
                 + "\nChildren: " + children
                 + "\nSkills they need to Max: " + Arrays.toString(skillsToMax)

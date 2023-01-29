@@ -13,18 +13,21 @@ public class EnumsController {
 
     @GetMapping("/age")
     public ResponseEntity<AgeGroup[]> getAgeList() {
+
         AgeGroup[] ages = AgeGroup.values();
         return ResponseEntity.status(HttpStatus.OK).body(ages);
     }
 
     @GetMapping("/gender")
     public ResponseEntity<Gender[]> getGenderList() {
+
         Gender[] genders = Gender.values();
         return ResponseEntity.status(HttpStatus.OK).body(genders);
     }
 
     @GetMapping("/aspirations")
     public ResponseEntity<Aspiration[]> getAspirationList() {
+
         Aspiration[] aspirations = Aspiration.values();
         return ResponseEntity.status(HttpStatus.OK).body(aspirations);
     }
@@ -47,6 +50,7 @@ public class EnumsController {
 
     @GetMapping("/jobs")
     public ResponseEntity<Job[]> getJobsList() {
+
         Job[] jobs = Job.values();
         return ResponseEntity.status(HttpStatus.OK).body(jobs);
     }
@@ -55,24 +59,28 @@ public class EnumsController {
 
     @GetMapping("/sexual-preference")
     public ResponseEntity<SexualPreference[]> getSexualPreferenceList() {
+
         SexualPreference[] preference = SexualPreference.values();
         return ResponseEntity.status(HttpStatus.OK).body(preference);
     }
 
     @GetMapping("/skills")
     public ResponseEntity<Skill[]> getSkillsList() {
+
         Skill[] skills = Skill.values();
         return ResponseEntity.status(HttpStatus.OK).body(skills);
     }
 
     @GetMapping("/teen-jobs")
     public ResponseEntity<TeenJob[]> getTeenJobsList() {
+
         TeenJob[] jobs = TeenJob.values();
         return ResponseEntity.status(HttpStatus.OK).body(jobs);
     }
 
     @GetMapping("/toddler-skills")
     public ResponseEntity<ToddlerSkills[]> getToddlerSkillsList() {
+
         ToddlerSkills[] skills = ToddlerSkills.values();
         return ResponseEntity.status(HttpStatus.OK).body(skills);
     }

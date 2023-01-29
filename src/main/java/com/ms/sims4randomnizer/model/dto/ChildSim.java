@@ -1,26 +1,26 @@
 package com.ms.sims4randomnizer.model.dto;
 
-import com.ms.sims4randomnizer.model.enums.AgeGroup;
-import com.ms.sims4randomnizer.model.enums.ChildAspiration;
+import com.ms.sims4randomnizer.model.db_dtos.Age;
+import com.ms.sims4randomnizer.model.db_dtos.Aspiration;
 import com.ms.sims4randomnizer.util.Randomizer;
 
 public class ChildSim extends Sim{
 
-    private ChildAspiration aspiration;
+    private Aspiration aspiration;
     private Object[] skillsToMax; //skills the sim has to develop to the max level
 
-    public ChildSim(ChildAspiration aspiration, Object[] skillsToMax) {
-        super(Randomizer.getGender(), AgeGroup.CHILD);
+    public ChildSim(Age ageGroup, Aspiration aspiration, Object[] skillsToMax) {
+        super(Randomizer.getGender(), ageGroup);
         this.aspiration = aspiration;
         this.skillsToMax = skillsToMax;
     }
 
     ////////////// GETTERS & SETTERS /////////////////
-    public ChildAspiration getAspiration() {
+    public Aspiration getAspiration() {
         return aspiration;
     }
 
-    public void setAspiration(ChildAspiration aspiration) {
+    public void setAspiration(Aspiration aspiration) {
         this.aspiration = aspiration;
     }
 
