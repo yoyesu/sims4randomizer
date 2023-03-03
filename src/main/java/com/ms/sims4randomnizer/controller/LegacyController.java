@@ -22,7 +22,6 @@ public class LegacyController {
         //get params from front-end --> IT'S THE REQUEST BODY
         PropertiesLoader.resetProperties();
         //map params to properties loader
-        System.out.println(config.getDifficulty());
         PropertiesLoader.setDifficulty(config.getDifficulty());
         PropertiesLoader.setLifeSpanType(config.getLifespan());
         PropertiesLoader.setNumberOfStarterSims(config.getStarterSims());
