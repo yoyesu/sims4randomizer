@@ -6,6 +6,7 @@ import com.ms.sims4randomnizer.model.dto.Household;
 import com.ms.sims4randomnizer.model.dto.Sim;
 import com.ms.sims4randomnizer.util.Generator;
 import com.ms.sims4randomnizer.util.PropertiesLoader;
+import com.ms.sims4randomnizer.util.Randomizer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ public class LegacyController {
         PropertiesLoader.resetProperties();
         //map params to properties loader
         PropertiesLoader.setDifficulty(config.getDifficulty());
+        Randomizer.difficulty = Randomizer.getDifficulty();
         PropertiesLoader.setLifeSpanType(config.getLifespan());
         PropertiesLoader.setNumberOfStarterSims(config.getStarterSims());
 

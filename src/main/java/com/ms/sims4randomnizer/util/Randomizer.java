@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Randomizer {
     private static int lifespan;
-    public static Difficulty difficulty = getDifficulty();
+    public static Difficulty difficulty;
 
     public static int getRandomJobLevel(){
         int level = PropertiesLoader.getJobLevel();
@@ -14,7 +14,6 @@ public class Randomizer {
             return level; //to skip the switch loop if the user already decided the job level
         }
 
-//        int difficulty = PropertiesLoader.getDifficulty();
         int bound = 11;
         int origin = 1;
         switch (difficulty){
