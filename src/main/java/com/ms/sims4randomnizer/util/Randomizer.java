@@ -43,7 +43,6 @@ public class Randomizer {
     }
 
     public static AgeGroup getRandomAgeGroup(int starterSims){
-//        int difficulty = PropertiesLoader.getDifficulty();
         int age = PropertiesLoader.getSimAge();
         int origin = 0;
         int bound = AgeGroup.values().length;
