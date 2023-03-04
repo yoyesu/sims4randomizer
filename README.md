@@ -29,6 +29,7 @@ The app allows you to get four different modalities of random prompts for the si
 * cucumber-junit
 * junit-vintage-engine
 * hamcrest
+* rest-assured
   
 
 
