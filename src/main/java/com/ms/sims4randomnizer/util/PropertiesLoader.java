@@ -74,7 +74,7 @@ public class PropertiesLoader {
         return wedding;
     }
 
-    public int getGenderOfSim() {
+    public static int getGenderOfSim() {
         return genderOfSim;
     }
 
@@ -122,7 +122,11 @@ public class PropertiesLoader {
         return simAge;
     }
 
+
     public static void resetProperties(){
+        difficulty = -1;
+        lifeSpanType = -1;
+        numberOfStarterSims = -1;
         wedding = -1;
         genderOfSim = -1;
         alreadyMarried = -1;
