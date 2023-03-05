@@ -1,9 +1,7 @@
 package com.ms.sims4randomnizer;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
-import com.ms.sims4randomnizer.model.enums.Difficulty;
-import com.ms.sims4randomnizer.model.enums.Job;
-import com.ms.sims4randomnizer.model.enums.TeenJob;
+import com.ms.sims4randomnizer.model.enums.*;
 import com.ms.sims4randomnizer.util.PropertiesLoader;
 import com.ms.sims4randomnizer.util.Randomizer;
 import static org.hamcrest.MatcherAssert.*;
@@ -107,5 +105,83 @@ public class RandomClassTests {
         PropertiesLoader.setJob(3);
         Randomizer.difficulty = Difficulty.EASY;
         assertThat(Randomizer.getRandomTeenJob().ordinal(), equalTo(PropertiesLoader.getJob()));
+    }
+
+    @Test
+    @DisplayName("Age index equals age greater than -1 in Propertiesloader")
+    void ageIndexEqualsAgeInPropertiesloader() {
+        PropertiesLoader.setSimAge(4);
+        Randomizer.difficulty = Difficulty.EASY;
+        assertThat(Randomizer.getRandomAgeGroup(1).ordinal(), equalTo(PropertiesLoader.getSimAge()));
+    }
+
+    @Test
+    @DisplayName("One sim will be young adult or older")
+    void oneSimWillBeYoungAdultOrOlder() {
+        Randomizer.difficulty = Randomizer.getDifficulty();
+        assertThat(Randomizer.getRandomAgeGroup(1).ordinal(), greaterThanOrEqualTo(AgeGroup.YOUNG_ADULT.ordinal()));
+    }
+
+    @Test
+    @DisplayName("Two sims in normal diff are young adult or older")
+    void twoSimsInNormalDiffAreYoungAdultOrOlder() {
+        Randomizer.difficulty = Difficulty.NORMAL;
+        assertThat(Randomizer.getRandomAgeGroup(2).ordinal(), greaterThanOrEqualTo(AgeGroup.YOUNG_ADULT.ordinal()));
+    }
+
+    @Test
+    @DisplayName("Two sims in hard diff are any age")
+    void twoSimsInHardDiffAreAnyAge() {
+        Randomizer.difficulty = Difficulty.HARD;
+        assertThat(Randomizer.getRandomAgeGroup(2).ordinal(), greaterThanOrEqualTo(AgeGroup.TODDLER.ordinal()));
+    }
+
+    @Test
+    @DisplayName("Lifespan index equals lifespan in PropertiesLoader")
+    void lifespanIndexEqualsLifespanInPropertiesLoader() {
+        PropertiesLoader.setLifeSpanType(LifeSpan.LONG.ordinal());
+        assertThat(Randomizer.getLifeSpan().ordinal(), equalTo(PropertiesLoader.getLifeSpanType()) );
+    }
+
+    @Test
+    @DisplayName("Lifespan origin is equal or greater than 0")
+    void lifespanOriginIsEqualOrGreaterThan0() {
+        PropertiesLoader.setLifeSpanType(-1);
+        assertThat(Randomizer.getLifeSpan().ordinal(), greaterThanOrEqualTo(0));
+    }
+
+    @Test
+    @DisplayName("Lifespan is less than lifespans length")
+    void lifespanIsLessThanLifespansLength() {
+       PropertiesLoader.setLifeSpanType(-1);
+        assertThat(Randomizer.getLifeSpan().ordinal(), lessThan(LifeSpan.values().length));
+    }
+
+    @Test
+    @DisplayName("Number of sims equals number in PropertiesLoader")
+    void numberOfSimsEqualsNumberInPropertiesLoader() {
+        PropertiesLoader.setNumberOfStarterSims(5);
+        assertThat(Randomizer.getNumberOfStarterSims(), equalTo(PropertiesLoader.getNumberOfStarterSims()));
+    }
+
+    @Test
+    @DisplayName("Sims are greater than 0")
+    void simsAreGreaterThan0() {
+        PropertiesLoader.setNumberOfStarterSims(-1);
+        assertThat(Randomizer.getNumberOfStarterSims(), greaterThan(0));
+    }
+
+    @Test
+    @DisplayName("Sims are less than 9")
+    void simsAreLessThan9() {
+        PropertiesLoader.setNumberOfStarterSims(-1);
+        assertThat(Randomizer.getNumberOfStarterSims(), lessThan(9));
+    }
+
+    @Test
+    @DisplayName("Gender index equals one in PropertiesLoader")
+    void genderIndexEqualsOneInPropertiesLoader() {
+        PropertiesLoader.setGenderOfSim(0);
+        assertThat(Randomizer.getGender().ordinal(), equalTo(PropertiesLoader.getGenderOfSim()) );
     }
 }
