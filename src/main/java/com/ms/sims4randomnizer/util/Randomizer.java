@@ -44,6 +44,10 @@ public class Randomizer {
 
     public static AgeGroup getRandomAgeGroup(int starterSims){
         int age = PropertiesLoader.getSimAge();
+
+        if(age != -1){ //User already decided the age
+            return AgeGroup.values()[age];
+        }
         int origin = 0;
         int bound = AgeGroup.values().length;
         if(starterSims == 1 && (difficulty == Difficulty.EASY || difficulty == Difficulty.NORMAL) || difficulty == Difficulty.EASY){
@@ -57,19 +61,18 @@ public class Randomizer {
             bound = AgeGroup.ELDERLY.ordinal() +1;
         }
 
-        int id = age == -1 ? new Random().nextInt(origin, bound) : age;
+        int id = new Random().nextInt(origin, bound);
         return AgeGroup.values()[id];
     }
 
     public static LifeSpan getLifeSpan(){
         int rawLifespan = PropertiesLoader.getLifeSpanType();
-        lifespan = rawLifespan == -1 ? new Random().nextInt(0, 3) : rawLifespan;
+        lifespan = rawLifespan == -1 ? new Random().nextInt(0, LifeSpan.values().length) : rawLifespan;
 
         return LifeSpan.values()[lifespan];
     }
 
     public static int getNumberOfStarterSims(){
-//        int difficulty = PropertiesLoader.getDifficulty();
         int numberOfStarterSims = PropertiesLoader.getNumberOfStarterSims();
         int origin = 1;
         int bound = 9;
@@ -92,8 +95,7 @@ public class Randomizer {
     }
 
     public static Gender getGender(){
-        PropertiesLoader properties = new PropertiesLoader();
-        int genderOfSim = properties.getGenderOfSim();
+        int genderOfSim = PropertiesLoader.getGenderOfSim();
         int id = genderOfSim < 0? new Random().nextInt(Gender.values().length) : genderOfSim;
         return Gender.values()[id];
     }
