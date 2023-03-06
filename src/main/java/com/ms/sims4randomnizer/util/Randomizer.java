@@ -1,11 +1,20 @@
 package com.ms.sims4randomnizer.util;
 
+import com.ms.sims4randomnizer.controller.repositories.AgeRepository;
+import com.ms.sims4randomnizer.model.entities.Age;
+import com.ms.sims4randomnizer.model.enums.Difficulty;
+import com.ms.sims4randomnizer.model.enums.LifeSpan;
+
 import com.ms.sims4randomnizer.model.enums.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.*;
 
 public class Randomizer {
     private static int lifespan;
-    public static Difficulty difficulty = getDifficulty();
+    public static Difficulty difficulty;
+    @Autowired
+    private static AgeRepository ageRepository;
 
     public static int getRandomJobLevel(){
         int level = PropertiesLoader.getJobLevel();
@@ -43,27 +52,26 @@ public class Randomizer {
 //        return TeenJob.values()[id];
 //    }
 
-    public static AgeGroup getRandomAgeGroup(int starterSims){
+    public static Age getRandomAgeGroup(int starterSims){
+        Randomizer.difficulty = Randomizer.getDifficulty();
+        Difficulty difficulty = Randomizer.difficulty;
+//        int starterSims = PropertiesLoader.getNumberOfStarterSims();
         int age = PropertiesLoader.getSimAge();
-
-        if(age != -1){ //User already decided the age
-            return AgeGroup.values()[age];
-        }
         int origin = 0;
-        int bound = AgeGroup.values().length;
+        int bound = ageRepository.findAll().size();
         if(starterSims == 1 && (difficulty == Difficulty.EASY || difficulty == Difficulty.NORMAL) || difficulty == Difficulty.EASY){
-            origin = AgeGroup.YOUNG_ADULT.ordinal();
-            bound = AgeGroup.ELDERLY.ordinal();
+            origin = ageRepository.findAgeByAgeNameEqualsIgnoreCase("young adult").getAgeId() -1;
+            bound = ageRepository.findAgeByAgeNameEqualsIgnoreCase("elder").getAgeId();
         } else if (starterSims == 1 && difficulty == Difficulty.HARD){
-            origin = AgeGroup.ELDERLY.ordinal();
-            bound = AgeGroup.ELDERLY.ordinal() +1;
+            origin = ageRepository.findAgeByAgeNameEqualsIgnoreCase("elder").getAgeId() -1;
+            bound = ageRepository.findAgeByAgeNameEqualsIgnoreCase("elder").getAgeId();
         } else if(starterSims > 1 && difficulty == Difficulty.NORMAL){
-            origin = AgeGroup.YOUNG_ADULT.ordinal();
-            bound = AgeGroup.ELDERLY.ordinal() +1;
+            origin = ageRepository.findAgeByAgeNameEqualsIgnoreCase("young adult").getAgeId() -1;
+            bound = ageRepository.findAgeByAgeNameEqualsIgnoreCase("elder").getAgeId();
         }
 
-        int id = new Random().nextInt(origin, bound);
-        return AgeGroup.values()[id];
+        int id = age == -1 ? new Random().nextInt(origin, bound) : age;
+        return ageRepository.findById(id).orElseThrow();
     }
 
     public static LifeSpan getLifeSpan(){
@@ -96,29 +104,30 @@ public class Randomizer {
         return sims;
     }
 
-  /*  public static Gender getGender(){
-        int genderOfSim = PropertiesLoader.getGenderOfSim();
-        int id = genderOfSim < 0? new Random().nextInt(Gender.values().length) : genderOfSim;
-        return Gender.values()[id];
-    }
+//    public static Gender getGender(){
+//        PropertiesLoader properties = new PropertiesLoader();
+//        int genderOfSim = properties.getGenderOfSim();
+//        int id = genderOfSim < 0? new Random().nextInt(Gender.values().length) : genderOfSim;
+//        return Gender.values()[id];
+//    }
+//
+//    public static Aspiration getAspiration(){
+//        int aspiration = PropertiesLoader.getAspiration();
+//        int id = aspiration == -1 ? new Random().nextInt(Aspiration.values().length) : aspiration;
+//        return Aspiration.values()[id];
+//    }
+//
+//    public static ChildAspiration getChildAspiration(){
+//        int aspiration = PropertiesLoader.getAspiration();
+//        int id = aspiration == -1 ? new Random().nextInt(ChildAspiration.values().length) : aspiration;
+//        return ChildAspiration.values()[id];
+//    }
 
-    public static Aspiration getAspiration(){
-        int aspiration = PropertiesLoader.getAspiration();
-        int id = aspiration == -1 ? new Random().nextInt(Aspiration.values().length) : aspiration;
-        return Aspiration.values()[id];
-    }*/
-
-  /*  public static ChildAspiration getChildAspiration(){
-        int aspiration = PropertiesLoader.getAspiration();
-        int id = aspiration == -1 ? new Random().nextInt(ChildAspiration.values().length) : aspiration;
-        return ChildAspiration.values()[id];
-    }
-
-    public static SexualPreference getSexualPreference(){
-        int sexuality = PropertiesLoader.getSexuality();
-        int id = sexuality == -1 ? new Random().nextInt(SexualPreference.values().length) : sexuality;
-        return SexualPreference.values()[id];
-    }*/
+//    public static SexualPreference getSexualPreference(){
+//        int sexuality = PropertiesLoader.getSexuality();
+//        int id = sexuality == -1 ? new Random().nextInt(SexualPreference.values().length) : sexuality;
+//        return SexualPreference.values()[id];
+//    }
 
     public static int getNumberOfChildren(){
 //        int difficulty = PropertiesLoader.getDifficulty();
