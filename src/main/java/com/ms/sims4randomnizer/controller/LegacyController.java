@@ -16,7 +16,7 @@ public class LegacyController {
     public ResponseEntity<GameSave> submitStarterHouseholdForm(@RequestBody StarterNewSimFormConfig config) {
         GameSave gameSave = Generator.generateGameSaveForGeneralHousehold(config);
         gameSave.getSims().get(0).setHeir(true);
-        //return json with household data
+
         return ResponseEntity.status(HttpStatus.OK).body(gameSave);
     }
 }
