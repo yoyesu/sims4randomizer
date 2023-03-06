@@ -1,15 +1,19 @@
 package com.ms.sims4randomnizer.util;
 
+import com.ms.sims4randomnizer.controller.JobController;
 import com.ms.sims4randomnizer.controller.repositories.AgeRepository;
 import com.ms.sims4randomnizer.model.entities.Age;
+import com.ms.sims4randomnizer.model.entities.Job;
 import com.ms.sims4randomnizer.model.enums.Difficulty;
 import com.ms.sims4randomnizer.model.enums.LifeSpan;
 
 import com.ms.sims4randomnizer.model.enums.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class Randomizer {
     private static int lifespan;
     public static Difficulty difficulty;
@@ -23,7 +27,6 @@ public class Randomizer {
             return level; //to skip the switch loop if the user already decided the job level
         }
 
-//        int difficulty = PropertiesLoader.getDifficulty();
         int bound = 11;
         int origin = 1;
         switch (difficulty){
@@ -38,24 +41,32 @@ public class Randomizer {
         return new Random().nextInt(origin, bound);
     }
 
-//    public static Job getRandomJob(){
-//        int job = PropertiesLoader.getJob();
-//        int id = job == -1? new Random().nextInt(Job.values().length) : job;
-//        Job generatedJob;
-////        generatedJob.setLevel(getRandomJobLevel());
-//        return generatedJob;
-//    }
+    public static Job getRandomJob(String age){
+        List<Job> jobs = new ArrayList<>();
+        if(age.equals("teen")){
+            jobs = JobController.getAllJobsByAgeName(age);
+        } else if (age.equals("adult")){
+            jobs = JobController.getAllJobsByAgeName(age);
+        }
 
-//    public static TeenJob getRandomTeenJob(){
-//        int job = PropertiesLoader.getJob();
-//        int id = job == -1? new Random().nextInt(TeenJob.values().length) : job;
-//        return TeenJob.values()[id];
-//    }
+        int job = PropertiesLoader.getJob();
+        int id = job == -1? new Random().nextInt(jobs.size()) : job;
+        Job generatedJob = null;
+
+        for(Job jobInList : jobs){
+            if(jobInList.getJobId() == id){
+                generatedJob = jobInList;
+                break;
+            }
+        }
+
+        return generatedJob;
+    }
 
     public static Age getRandomAgeGroup(int starterSims){
         Randomizer.difficulty = Randomizer.getDifficulty();
         Difficulty difficulty = Randomizer.difficulty;
-//        int starterSims = PropertiesLoader.getNumberOfStarterSims();
+
         int age = PropertiesLoader.getSimAge();
         int origin = 0;
         int bound = ageRepository.findAll().size();
@@ -82,7 +93,6 @@ public class Randomizer {
     }
 
     public static int getNumberOfStarterSims(){
-//        int difficulty = PropertiesLoader.getDifficulty();
         int numberOfStarterSims = PropertiesLoader.getNumberOfStarterSims();
         int origin = 1;
         int bound = 9;

@@ -1,10 +1,8 @@
 package com.ms.sims4randomnizer.controller.repositories;
 
-import com.ms.sims4randomnizer.model.db_dtos.Age;
-import com.ms.sims4randomnizer.model.db_dtos.Job;
-import com.ms.sims4randomnizer.model.db_dtos.JobAge;
+import com.ms.sims4randomnizer.model.entities.Age;
+import com.ms.sims4randomnizer.model.entities.JobAge;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.List;
 
