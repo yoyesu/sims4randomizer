@@ -2,7 +2,9 @@ package com.ms.sims4randomnizer.util;
 
 import com.ms.sims4randomnizer.controller.JobController;
 import com.ms.sims4randomnizer.controller.repositories.AgeRepository;
+import com.ms.sims4randomnizer.controller.repositories.GenderRepository;
 import com.ms.sims4randomnizer.model.entities.Age;
+import com.ms.sims4randomnizer.model.entities.Gender;
 import com.ms.sims4randomnizer.model.entities.Job;
 import com.ms.sims4randomnizer.model.enums.Difficulty;
 import com.ms.sims4randomnizer.model.enums.LifeSpan;
@@ -19,6 +21,8 @@ public class Randomizer {
     public static Difficulty difficulty;
     @Autowired
     private static AgeRepository ageRepository;
+    @Autowired
+    private static GenderRepository genderRepository;
 
     public static int getRandomJobLevel(){
         int level = PropertiesLoader.getJobLevel();
@@ -114,13 +118,13 @@ public class Randomizer {
         return sims;
     }
 
-//    public static Gender getGender(){
-//        PropertiesLoader properties = new PropertiesLoader();
-//        int genderOfSim = properties.getGenderOfSim();
-//        int id = genderOfSim < 0? new Random().nextInt(Gender.values().length) : genderOfSim;
-//        return Gender.values()[id];
-//    }
-//
+    public static Gender getGender(){
+        int genderOfSim = PropertiesLoader.getGenderOfSim();
+        List<Gender> genders = genderRepository.findAll();
+        int id = genderOfSim < 0? new Random().nextInt(genders.size()) : genderOfSim;
+        return genders.get(id);
+    }
+
 //    public static Aspiration getAspiration(){
 //        int aspiration = PropertiesLoader.getAspiration();
 //        int id = aspiration == -1 ? new Random().nextInt(Aspiration.values().length) : aspiration;
