@@ -1,5 +1,7 @@
 package com.ms.sims4randomnizer.util;
 
+import com.ms.sims4randomnizer.controller.forms.StarterNewSimFormConfig;
+import com.ms.sims4randomnizer.model.dto.GameSave;
 import com.ms.sims4randomnizer.model.dto.Household;
 import com.ms.sims4randomnizer.model.dto.Sim;
 import com.ms.sims4randomnizer.model.SimFactory;
@@ -25,6 +27,21 @@ public class Generator {
         }
 
         return sims;
+    }
+
+    public static GameSave generateGameSaveForGeneralHousehold(StarterNewSimFormConfig config){
+        //get params from front-end --> IT'S THE REQUEST BODY
+        PropertiesLoader.resetProperties();
+        //map params to properties loader
+        PropertiesLoader.setDifficulty(config.getDifficulty());
+        Randomizer.difficulty = Randomizer.getDifficulty();
+        PropertiesLoader.setLifeSpanType(config.getLifespan());
+        PropertiesLoader.setNumberOfStarterSims(config.getStarterSims());
+
+        Household household = Generator.generateHousehold();
+        List<Sim> sim = Generator.generateSims(household);
+
+        return new GameSave(household, sim);
     }
 
 }

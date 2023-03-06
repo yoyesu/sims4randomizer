@@ -15,20 +15,7 @@ public class StarterHouseholdController {
 
     @PostMapping("/starter-household")
     public ResponseEntity<GameSave> submitStarterHouseholdForm(@RequestBody StarterNewSimFormConfig config) {
-        //get params from front-end --> IT'S THE REQUEST BODY
-        PropertiesLoader.resetProperties();
-
-        //map params to properties loader
-        PropertiesLoader.setDifficulty(config.getDifficulty());
-        Randomizer.difficulty = Randomizer.getDifficulty();
-
-        PropertiesLoader.setLifeSpanType(config.getLifespan());
-        PropertiesLoader.setNumberOfStarterSims(config.getStarterSims());
-
-        Household household = Generator.generateHousehold();
-        List<Sim> sim = Generator.generateSims(household);
-
         //return json with household data
-        return ResponseEntity.status(HttpStatus.OK).body(new GameSave(household,sim));
+        return ResponseEntity.status(HttpStatus.OK).body(Generator.generateGameSaveForGeneralHousehold(config));
     }
 }
