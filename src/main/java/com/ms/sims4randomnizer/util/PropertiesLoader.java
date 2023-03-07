@@ -3,7 +3,7 @@ package com.ms.sims4randomnizer.util;
 import java.util.Random;
 
 public class PropertiesLoader {
-
+//TODO default value of all the properties should be -1
     private static int difficulty;
     private static int lifeSpanType;
     private static int numberOfStarterSims;
@@ -12,7 +12,7 @@ public class PropertiesLoader {
     private static int alreadyMarried;
     private static int childrenToHave;
     private static int simAge;
-    private static int aspiration;
+    private static int aspiration = -1;
     private static int job;
     private static int jobLevel;
     private static int sexuality;

@@ -1,11 +1,11 @@
 package com.ms.sims4randomnizer.util;
 
+import com.ms.sims4randomnizer.controller.AspirationController;
 import com.ms.sims4randomnizer.controller.JobController;
 import com.ms.sims4randomnizer.controller.repositories.AgeRepository;
+import com.ms.sims4randomnizer.controller.repositories.AspirationAgeRepository;
 import com.ms.sims4randomnizer.controller.repositories.GenderRepository;
-import com.ms.sims4randomnizer.model.entities.Age;
-import com.ms.sims4randomnizer.model.entities.Gender;
-import com.ms.sims4randomnizer.model.entities.Job;
+import com.ms.sims4randomnizer.model.entities.*;
 import com.ms.sims4randomnizer.model.enums.Difficulty;
 import com.ms.sims4randomnizer.model.enums.LifeSpan;
 
@@ -19,10 +19,17 @@ import java.util.*;
 public class Randomizer {
     private static int lifespan;
     public static Difficulty difficulty;
-    @Autowired
     private static AgeRepository ageRepository;
-    @Autowired
     private static GenderRepository genderRepository;
+    private static AspirationAgeRepository aspirationAgeRepository;
+
+    @Autowired
+    public Randomizer(AgeRepository ageRepository, GenderRepository genderRepository, AspirationAgeRepository aspirationAgeRepository){
+        Randomizer.ageRepository = ageRepository;
+        Randomizer.genderRepository = genderRepository;
+        Randomizer.aspirationAgeRepository = aspirationAgeRepository;
+    }
+
 
     public static int getRandomJobLevel(){
         int level = PropertiesLoader.getJobLevel();
@@ -125,23 +132,30 @@ public class Randomizer {
         return genders.get(id);
     }
 
-//    public static Aspiration getAspiration(){
-//        int aspiration = PropertiesLoader.getAspiration();
-//        int id = aspiration == -1 ? new Random().nextInt(Aspiration.values().length) : aspiration;
-//        return Aspiration.values()[id];
-//    }
-//
-//    public static ChildAspiration getChildAspiration(){
-//        int aspiration = PropertiesLoader.getAspiration();
-//        int id = aspiration == -1 ? new Random().nextInt(ChildAspiration.values().length) : aspiration;
-//        return ChildAspiration.values()[id];
-//    }
+    public static Aspiration getAspiration(String age){
+        int aspiration = PropertiesLoader.getAspiration();
+        List<Aspiration> aspirations = AspirationController.getAllAspirationsByAgeName(age, aspirationAgeRepository);
 
-//    public static SexualPreference getSexualPreference(){
-//        int sexuality = PropertiesLoader.getSexuality();
+        int id = aspiration == -1 ? new Random().nextInt(aspirations.size()) : aspiration;
+
+        Aspiration generatedAspiration = null;
+
+        for(int i = 0; i < aspirations.size(); i++){
+            if(i == id){
+                generatedAspiration = aspirations.get(i);
+                break;
+            }
+        }
+
+        return generatedAspiration;
+    }
+
+    public static SexualPreference getSexualPreference(){
+        int sexuality = PropertiesLoader.getSexuality();
+        return new SexualPreference();
 //        int id = sexuality == -1 ? new Random().nextInt(SexualPreference.values().length) : sexuality;
 //        return SexualPreference.values()[id];
-//    }
+    }
 
     public static int getNumberOfChildren(){
 //        int difficulty = PropertiesLoader.getDifficulty();
@@ -189,8 +203,8 @@ public class Randomizer {
         return numberOfChildren;
     }
 
-//    public static Object[] getSkillsToMax(){
-//        int numberOfSkillsToMax = PropertiesLoader.getMaxNumberOfSkills(); //this sets the max number of skills to complete
+    public static Object[] getSkillsToMax(){
+        int numberOfSkillsToMax = PropertiesLoader.getMaxNumberOfSkills(); //this sets the max number of skills to complete
 //        int origin = 0;
 //        int bound = Skill.values().length;
 //
@@ -238,15 +252,16 @@ public class Randomizer {
 //            numberOfSkillsToMax = new Random().nextInt(origin, bound);
 //        }
 //
-//        Set<Skill> skills = new HashSet<>();
+        Set<Skill> skills = new HashSet<>();
 //        for(int i = 0; i < numberOfSkillsToMax; i++){
 //            if(!skills.add(Skill.values()[new Random().nextInt(Skill.values().length)])){ //this picks skills until the max number of skills is reached
 //                i--;
 //            }
 //        }
-//        Object[] skillsToMax = skills.toArray();
-//        return skillsToMax;
-//    }
+        Skill[] skillsToMax = skills.toArray(new Skill[0]);
+        //TODO change Object type to the right one. "toArray(new Skill[0])" this way you can convert a collection to an array of any type. But should I return the skill object or just the name of the string? To create a sim only the string is really necessary
+        return skillsToMax;
+    }
 //
 //    public static Object[] getToddlerSkillsToMax(){
 //        int id = new Random().nextInt(ToddlerSkills.values().length);

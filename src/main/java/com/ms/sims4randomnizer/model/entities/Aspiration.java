@@ -1,4 +1,4 @@
-package com.ms.sims4randomnizer.model.db_dtos;
+package com.ms.sims4randomnizer.model.entities;
 
 import javax.persistence.*;
 
@@ -12,8 +12,8 @@ public class Aspiration {
     @Column(name = "aspiration_name")
     private String aspirationName;
 
-    @ManyToOne
-    @JoinColumn(name = "pack_name")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pack")
     private Pack pack;
 
     public int getAspirationId() {
