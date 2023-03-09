@@ -1,9 +1,6 @@
 package com.ms.sims4randomnizer.model.dto;
 
-import com.ms.sims4randomnizer.model.db_dtos.Age;
-import com.ms.sims4randomnizer.model.db_dtos.Aspiration;
-import com.ms.sims4randomnizer.model.db_dtos.Job;
-import com.ms.sims4randomnizer.model.db_dtos.SexualPreference;
+import com.ms.sims4randomnizer.model.entities.*;
 import com.ms.sims4randomnizer.util.Randomizer;
 
 import java.util.Arrays;
@@ -14,8 +11,8 @@ public class TeenSim extends Sim {
     private SexualPreference sexualPreference;
     private Object[] skillsToMax;
 
-    public TeenSim(Age ageGroup, Aspiration aspiration, Job job, SexualPreference sexualPreference, Object[] skillsToMax) {
-        super(Randomizer.getGender(),ageGroup);
+    public TeenSim(Gender gender, Age ageGroup, Aspiration aspiration, Job job, SexualPreference sexualPreference, Object[] skillsToMax) {
+        super(gender,ageGroup);
         this.aspiration = aspiration;
         this.job = job;
         this.sexualPreference = sexualPreference;

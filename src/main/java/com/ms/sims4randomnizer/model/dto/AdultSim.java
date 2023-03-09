@@ -1,7 +1,6 @@
 package com.ms.sims4randomnizer.model.dto;
 
-import com.ms.sims4randomnizer.model.db_dtos.*;
-import com.ms.sims4randomnizer.util.Randomizer;
+import com.ms.sims4randomnizer.model.entities.*;
 
 import java.util.Arrays;
 
@@ -14,10 +13,10 @@ public class AdultSim extends Sim {
     private String isMarried;
     private String willMarry;
 
-    public AdultSim(Age ageGroup, Aspiration aspiration,
+    public AdultSim(Gender gender, Age ageGroup, Aspiration aspiration,
                     Job job, SexualPreference sexualPreference, int children, Object[] skillsToMax,
                     boolean isMarried, boolean willMarry) {
-        super(new Gender(),ageGroup);
+        super(gender,ageGroup);
         this.ageGroup = ageGroup;
         this.aspiration = aspiration;
         this.job = job;

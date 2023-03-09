@@ -16,7 +16,7 @@ public class Job {
     private int jobMaxLevel;
 
     @ManyToOne
-    @JoinColumn(name = "pack_name")
+    @JoinColumn(name = "pack")
     private Pack pack;
 
     public int getJobId() {

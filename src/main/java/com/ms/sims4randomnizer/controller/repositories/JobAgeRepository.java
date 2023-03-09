@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface JobAgeRepository extends JpaRepository<JobAge, Integer> {
-
-    List<JobAge> findJobAgesByAges(List<Age> ages);
+//    List<JobAge> findJobAgesByAges(List<Age> ages);
 }

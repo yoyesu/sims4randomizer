@@ -1,44 +1,46 @@
 package com.ms.sims4randomnizer.model.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "jobs_ages")
+@Table(name = "job_age")
 public class JobAge {
 
-    @Id
-    private int jobAgeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EmbeddedId
+    private JobAgeId jobAgeId;
 
-    @ManyToMany
-    @JoinColumn(name = "jobs_name")
-    private List<Job> jobs;
+    @MapsId("job")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "job", nullable = false)
+    private Job jobs;
 
-    @ManyToMany
-    @JoinColumn(name = "age_name")
-    private List<Age> ages;
+    @MapsId("age")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "age", nullable = false)
+    private Age ages;
 
-    public int getJobAgeId() {
+    public JobAgeId getJobAgeId() {
         return jobAgeId;
     }
 
-    public void setJobAgeId(int jobAgeId) {
+    public void setJobAgeId(JobAgeId jobAgeId) {
         this.jobAgeId = jobAgeId;
     }
 
-    public List<Job> getJobs() {
+    public Job getJobs() {
         return jobs;
     }
 
-    public void setJobs(List<Job> jobs) {
+    public void setJobs(Job jobs) {
         this.jobs = jobs;
     }
 
-    public List<Age> getAges() {
+    public Age getAges() {
         return ages;
     }
 
-    public void setAges(List<Age> ages) {
+    public void setAges(Age ages) {
         this.ages = ages;
     }
 }

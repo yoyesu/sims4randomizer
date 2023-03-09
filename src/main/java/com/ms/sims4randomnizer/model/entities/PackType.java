@@ -1,4 +1,4 @@
-package com.ms.sims4randomnizer.model.db_dtos;
+package com.ms.sims4randomnizer.model.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ public class PackType {
     @Id
     private int packTypeId;
 
-    @Column(name = "pack_types_name")
+    @Column(name = "pack_type_name")
     private String packTypeName;
 
     public int getPackTypeId() {

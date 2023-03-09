@@ -1,4 +1,4 @@
-package com.ms.sims4randomnizer.model.db_dtos;
+package com.ms.sims4randomnizer.model.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

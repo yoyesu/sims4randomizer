@@ -1,7 +1,7 @@
 package com.ms.sims4randomnizer.model.dto;
 
-import com.ms.sims4randomnizer.model.db_dtos.Age;
-import com.ms.sims4randomnizer.model.db_dtos.Gender;
+import com.ms.sims4randomnizer.model.entities.Age;
+import com.ms.sims4randomnizer.model.entities.Gender;
 
 public class Sim {
     protected String name;

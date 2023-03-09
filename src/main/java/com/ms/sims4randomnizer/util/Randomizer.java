@@ -53,12 +53,7 @@ public class Randomizer {
     }
 
     public static Job getRandomJob(String age){
-        List<Job> jobs = new ArrayList<>();
-        if(age.equals("teen")){
-            jobs = JobController.getAllJobsByAgeName(age);
-        } else if (age.equals("adult")){
-            jobs = JobController.getAllJobsByAgeName(age);
-        }
+        List<Job> jobs = JobController.getAllJobsByAgeName(age);
 
         int job = PropertiesLoader.getJob();
         int id = job == -1? new Random().nextInt(jobs.size()) : job;
