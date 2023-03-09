@@ -2,21 +2,21 @@ package com.ms.sims4randomnizer.model.dto;
 
 import com.ms.sims4randomnizer.model.enums.AgeGroup;
 import com.ms.sims4randomnizer.model.enums.Gender;
-import com.ms.sims4randomnizer.model.enums.Skill;
 
-import java.util.List;
+import java.util.Set;
 
 public class Sim {
     protected String name;
     protected String surname;
     protected Gender gender;
     protected AgeGroup ageGroup;
-    protected Object[] skills;
+    protected Set<? extends Enum<?>> skillsToMaster;
     protected boolean isHeir;
 
-    public Sim(Gender gender, AgeGroup ageGroup) {
+    public Sim(Gender gender, AgeGroup ageGroup, Set<? extends Enum<?>> skillsToMaster) {
         this.gender = gender;
         this.ageGroup = ageGroup;
+        this.skillsToMaster = skillsToMaster;
     }
 
     public String getName() {
@@ -51,9 +51,9 @@ public class Sim {
         this.ageGroup = ageGroup;
     }
 
-    public Object[] getSkills() {
+    public Set<? extends Enum<?>> getSkillsToMaster() {
 
-        return skills;
+        return skillsToMaster;
     }
 
     public boolean isHeir() {
@@ -64,9 +64,6 @@ public class Sim {
         isHeir = heir;
     }
 
-    public static Class<? extends Sim> getChildClass(Sim sim){
-        return sim.getClass();
-    }
     @Override
     public String toString() {
         return super.toString();
