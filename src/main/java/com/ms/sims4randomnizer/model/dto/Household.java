@@ -2,24 +2,17 @@ package com.ms.sims4randomnizer.model.dto;
 
 import com.ms.sims4randomnizer.model.enums.LifeSpan;
 
+import java.util.List;
+
 public class Household {
     private final int maxSims = 8;
+    private List<Sim> sims;
     private LifeSpan lifeSpan;
-    private int starterSims;
-    private int currentSims;
 
-    public Household(LifeSpan lifeSpan, int currentSims, int starterSims) {
+    public Household(LifeSpan lifeSpan, List<Sim> sims) {
         this.lifeSpan = lifeSpan;
-        this.currentSims = currentSims;
-        this.starterSims = starterSims;
+        this.sims = sims;
     }
-
-    public Household(LifeSpan lifeSpan, int starterSims) {
-        this.lifeSpan = lifeSpan;
-        this.starterSims = starterSims;
-    }
-
-    //////////// getters & setters//////////////////
 
     public int getMaxSims() {
         return maxSims;
@@ -33,21 +26,11 @@ public class Household {
         this.lifeSpan = lifeSpan;
     }
 
-    public int getCurrentSims() {
-        return currentSims;
+    public List<Sim> getSims() {
+        return sims;
     }
 
-    public void setCurrentSims(int currentSims) {
-        this.currentSims = currentSims;
+    public void setSims(List<Sim> sims) {
+        this.sims = sims;
     }
-
-    public int getStarterSims() {
-        return starterSims;
-    }
-
-    public void setStarterSims(int starterSims) {
-        this.starterSims = starterSims;
-    }
-
-    ////////////// END getters & setters //////////////
 }
