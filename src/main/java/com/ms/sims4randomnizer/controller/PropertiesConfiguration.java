@@ -1,8 +1,6 @@
-package com.ms.sims4randomnizer.controller.forms;
+package com.ms.sims4randomnizer.controller;
 
-import java.util.Arrays;
-
-public class StarterNewSimFormConfig {
+public class PropertiesConfiguration {
 
     private int difficulty;
     private int lifespan;
@@ -19,7 +17,7 @@ public class StarterNewSimFormConfig {
     private int isMarried;
     private int willMarry;
 
-    public StarterNewSimFormConfig() {
+    public PropertiesConfiguration() {
     }
 
     public int getGender() {
@@ -96,24 +94,5 @@ public class StarterNewSimFormConfig {
 
     public int getSkillsArrayLength() {
         return skillsArrayLength;
-    }
-
-    @Override
-    public String toString() {
-        return "NewSimFormConfig{" +
-                "difficulty=" + difficulty +
-                ", lifespan=" + lifespan +
-                ", starterSims=" + starterSims +
-                ", aspiration=" + aspiration +
-                ", gender=" + gender +
-                ", age=" + age +
-                ", job=" + job +
-                ", jobLevel=" + jobLevel +
-                ", sexuality=" + sexuality +
-                ", skills=" + Arrays.toString(skills) +
-                ", children=" + children +
-                ", isMarried=" + isMarried +
-                ", willMarry=" + willMarry +
-                '}';
     }
 }
