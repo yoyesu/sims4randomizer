@@ -1,17 +1,14 @@
 package com.ms.sims4randomnizer;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.ms.sims4randomnizer.model.enums.*;
-import com.ms.sims4randomnizer.util.PropertiesLoader;
+import com.ms.sims4randomnizer.controller.PropertiesLoader;
 import com.ms.sims4randomnizer.util.Randomizer;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 public class RandomClassTests {
 
@@ -161,21 +158,21 @@ public class RandomClassTests {
     @DisplayName("Number of sims equals number in PropertiesLoader")
     void numberOfSimsEqualsNumberInPropertiesLoader() {
         PropertiesLoader.setNumberOfStarterSims(5);
-        assertThat(Randomizer.getNumberOfStarterSims(), equalTo(PropertiesLoader.getNumberOfStarterSims()));
+        assertThat(Randomizer.getNumberOfSims(), equalTo(PropertiesLoader.getNumberOfSims()));
     }
 
     @Test
     @DisplayName("Sims are greater than 0")
     void simsAreGreaterThan0() {
         PropertiesLoader.setNumberOfStarterSims(-1);
-        assertThat(Randomizer.getNumberOfStarterSims(), greaterThan(0));
+        assertThat(Randomizer.getNumberOfSims(), greaterThan(0));
     }
 
     @Test
     @DisplayName("Sims are less than 9")
     void simsAreLessThan9() {
         PropertiesLoader.setNumberOfStarterSims(-1);
-        assertThat(Randomizer.getNumberOfStarterSims(), lessThan(9));
+        assertThat(Randomizer.getNumberOfSims(), lessThan(9));
     }
 
     @Test
