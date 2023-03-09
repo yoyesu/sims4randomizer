@@ -7,7 +7,7 @@ public class PropertiesConfiguration {
     private int starterSims;
     private int aspiration;
     private int gender;
-    private int age = -1;
+    private int age;
     private int job;
     private int jobLevel;
     private int sexuality;
