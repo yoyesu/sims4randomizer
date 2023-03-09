@@ -1,14 +1,10 @@
 package com.ms.sims4randomnizer;
 
-import com.ms.sims4randomnizer.controller.forms.StarterNewSimFormConfig;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
 
 public class ControllersTests {
 
