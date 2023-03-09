@@ -37,9 +37,9 @@ public class EnumsController {
     }
 
     @GetMapping("/child-skills")
-    public ResponseEntity<ChildSkills[]> getChildSkillsList() {
+    public ResponseEntity<ChildSkill[]> getChildSkillsList() {
 
-        ChildSkills[] skills = ChildSkills.values();
+        ChildSkill[] skills = ChildSkill.values();
         return ResponseEntity.status(HttpStatus.OK).body(skills);
     }
 
@@ -72,8 +72,8 @@ public class EnumsController {
     }
 
     @GetMapping("/toddler-skills")
-    public ResponseEntity<ToddlerSkills[]> getToddlerSkillsList() {
-        ToddlerSkills[] skills = ToddlerSkills.values();
+    public ResponseEntity<ToddlerSkill[]> getToddlerSkillsList() {
+        ToddlerSkill[] skills = ToddlerSkill.values();
         return ResponseEntity.status(HttpStatus.OK).body(skills);
     }
 }

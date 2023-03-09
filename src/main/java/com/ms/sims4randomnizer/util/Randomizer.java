@@ -221,11 +221,11 @@ public class Randomizer {
         return skills;
     }
 
-    public static Set<ToddlerSkills> getToddlerSkillsToMax(){
-        int id = new Random().nextInt(ToddlerSkills.values().length);
-        Set<ToddlerSkills> skills = new HashSet<>();
+    public static Set<ToddlerSkill> getToddlerSkillsToMax(){
+        int id = new Random().nextInt(ToddlerSkill.values().length);
+        Set<ToddlerSkill> skills = new HashSet<>();
         for(int i = 0; i <= id; i++){
-            if(!skills.add(ToddlerSkills.values()[new Random().nextInt(ToddlerSkills.values().length)])){
+            if(!skills.add(ToddlerSkill.values()[new Random().nextInt(ToddlerSkill.values().length)])){
                 i--;
             }
 
@@ -233,11 +233,11 @@ public class Randomizer {
         return skills;
     }
 
-    public static Set<ChildSkills> getChildSkillsToMax(){
-        int id = new Random().nextInt(ChildSkills.values().length);
-        Set<ChildSkills> skills = new HashSet<>();
+    public static Set<ChildSkill> getChildSkillsToMax(){
+        int id = new Random().nextInt(ChildSkill.values().length);
+        Set<ChildSkill> skills = new HashSet<>();
         for(int i = 0; i <= id; i++){
-            if(!skills.add(ChildSkills.values()[new Random().nextInt(ChildSkills.values().length)])){
+            if(!skills.add(ChildSkill.values()[new Random().nextInt(ChildSkill.values().length)])){
                 i--;
             }
 
