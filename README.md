@@ -25,8 +25,6 @@ The app allows you to get four different modalities of random prompts for the si
 * spring-boot-devtools
 * springdoc-openapi-ui
 * spring-boot-starter-test
-* cucumber-java
-* cucumber-junit
 * junit-vintage-engine
 * hamcrest
 * rest-assured
