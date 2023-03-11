@@ -1,33 +1,29 @@
 package com.ms.sims4randomnizer.model.dto;
 
 import com.ms.sims4randomnizer.model.entities.*;
-
-import java.util.Arrays;
+import com.ms.sims4randomnizer.model.enums.*;
+import com.ms.sims4randomnizer.util.Randomizer;
 
 public class AdultSim extends Sim {
     public Aspiration aspiration;
     private Job job;
     private SexualPreference sexualPreference;
     private int children;
-    private Object[] skillsToMax;
     private String isMarried;
     private String willMarry;
 
     public AdultSim(Gender gender, Age ageGroup, Aspiration aspiration,
-                    Job job, SexualPreference sexualPreference, int children, Object[] skillsToMax,
+                    Job job, SexualPreference sexualPreference, int children,
                     boolean isMarried, boolean willMarry) {
-        super(gender,ageGroup);
+        super(gender,ageGroup, Randomizer.getSkillsToMax());
         this.ageGroup = ageGroup;
         this.aspiration = aspiration;
         this.job = job;
         this.sexualPreference = sexualPreference;
         this.children = children;
-        this.skillsToMax = skillsToMax;
         this.isMarried = isMarried ? "YES" : "NO";
         this.willMarry = willMarry ? "YES" : "NO";
     }
-
-    ////////////////// getters & setters //////////////////////////
 
     public Aspiration getAspiration() {
         return aspiration;
@@ -61,14 +57,6 @@ public class AdultSim extends Sim {
         this.children = children;
     }
 
-    @Override
-    public Object[] getSkills() {
-        return skillsToMax;
-    }
-    public void setSkillsToMax(String[] skillsToMax) {
-        this.skillsToMax = skillsToMax;
-    }
-
     public String getIsMarried() {
         return isMarried;
     }
@@ -85,21 +73,22 @@ public class AdultSim extends Sim {
         this.willMarry = willMarry ? "Yes" : "No";
     }
 
-    ///////////////////////////END getters & setters ////////////////////////////////////
-
 
     @Override
     public String toString() {
-        return "Age: " + ageGroup
-                + "\nGender: " + gender
-                + "\nAspiration: " + aspiration
-                + "\nJob: " + job
-//                + "\nJob level: " + job.getLevel()
-                + "\nSexual Preference: " + sexualPreference
-                + "\nChildren: " + children
-                + "\nSkills they need to Max: " + Arrays.toString(skillsToMax)
-                + "\nAre they Married?: " + isMarried
-                + "\nWill they marry ever o again?: " + willMarry
-                ;
+        return "AdultSim{" +
+                "aspiration=" + aspiration +
+                ", job=" + job +
+                ", sexualPreference=" + sexualPreference +
+                ", children=" + children +
+                ", isMarried='" + isMarried + '\'' +
+                ", willMarry='" + willMarry + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", gender=" + gender +
+                ", ageGroup=" + ageGroup +
+                ", skills=" + skillsToMaster +
+                ", isHeir=" + isHeir +
+                '}';
     }
 }

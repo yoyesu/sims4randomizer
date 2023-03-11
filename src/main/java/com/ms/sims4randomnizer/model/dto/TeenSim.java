@@ -9,14 +9,12 @@ public class TeenSim extends Sim {
     private Aspiration aspiration;
     private Job job;
     private SexualPreference sexualPreference;
-    private Object[] skillsToMax;
 
     public TeenSim(Gender gender, Age ageGroup, Aspiration aspiration, Job job, SexualPreference sexualPreference, Object[] skillsToMax) {
-        super(gender,ageGroup);
+        super(gender,ageGroup, Randomizer.getSkillsToMax());
         this.aspiration = aspiration;
         this.job = job;
         this.sexualPreference = sexualPreference;
-        this.skillsToMax = skillsToMax;
     }
 
     public Aspiration getAspiration() {
@@ -32,19 +30,12 @@ public class TeenSim extends Sim {
     }
 
     @Override
-    public Object[] getSkills() {
-
-        return skillsToMax;
-    }
-
-    @Override
     public String toString() {
         return "Age: " + ageGroup
                 + "<br>Gender: " + gender
                 + "<br>Aspiration: " + aspiration
                 + "<br>Job: " + job
                 + "<br>Sexual Preference: " + sexualPreference
-                + "<br>Skills they need to Max: " + Arrays.toString(skillsToMax)
                 ;
     }
 }

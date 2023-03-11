@@ -1,4 +1,4 @@
-package com.ms.sims4randomnizer.controller;
+package com.ms.sims4randomnizer.controller.spring_controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -8,13 +8,11 @@ import java.util.List;
 public class GameSave {
 
     private Household household;
-    private List<Sim> sims;
     private Difficulty difficulty;
 
 
-    public GameSave(Household household, List<Sim> sims) {
+    public GameSave(Household household) {
         this.household = household;
-        this.sims = sims;
         this.difficulty = Randomizer.difficulty;
     }
 
@@ -24,14 +22,6 @@ public class GameSave {
 
     public void setHousehold(Household household) {
         this.household = household;
-    }
-
-    public List<Sim> getSims() {
-        return sims;
-    }
-
-    public void setSims(List<Sim> sims) {
-        this.sims = sims;
     }
 
     public Difficulty getDifficulty() {

@@ -8,12 +8,13 @@ public class Sim {
     protected String surname;
     protected Gender gender;
     protected Age ageGroup;
-    protected Object[] skills;
+    protected Set<? extends Enum<?>> skillsToMaster;
     protected boolean isHeir;
 
-    public Sim(Gender gender, Age ageGroup) {
+    public Sim(Gender gender, Age ageGroup, Set<? extends Enum<?>> skillsToMaster) {
         this.gender = gender;
         this.ageGroup = ageGroup;
+        this.skillsToMaster = skillsToMaster;
     }
 
     public String getName() {
@@ -48,9 +49,9 @@ public class Sim {
         this.ageGroup = ageGroup;
     }
 
-    public Object[] getSkills() {
+    public Set<? extends Enum<?>> getSkillsToMaster() {
 
-        return skills;
+        return skillsToMaster;
     }
 
     public boolean isHeir() {
@@ -61,9 +62,6 @@ public class Sim {
         isHeir = heir;
     }
 
-    public static Class<? extends Sim> getChildClass(Sim sim){
-        return sim.getClass();
-    }
     @Override
     public String toString() {
         return super.toString();

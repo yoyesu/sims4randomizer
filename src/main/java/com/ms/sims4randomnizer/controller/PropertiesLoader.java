@@ -1,6 +1,4 @@
-package com.ms.sims4randomnizer.util;
-
-import java.util.Random;
+package com.ms.sims4randomnizer.controller;
 
 public class PropertiesLoader {
 //TODO default value of all the properties should be -1
@@ -66,7 +64,7 @@ public class PropertiesLoader {
         return lifeSpanType;
     }
 
-    public static int getNumberOfStarterSims() {
+    public static int getNumberOfSims() {
         return numberOfStarterSims;
     }
 
