@@ -33,20 +33,20 @@ public class AspirationController {
 
     @GetMapping("/all/{ageName}")
     public ResponseEntity<List<Aspiration>>  getAllAspirationsByAge(@PathVariable String ageName){
-        return new ResponseEntity<>(getAllAspirationsByAgeName(ageName, aspirationAgeRepository), HttpStatus.OK);
+        return new ResponseEntity<>(getAllAspirationsByAgeName(ageName, aspirationAgeRepository.findAll()), HttpStatus.OK);
     }
 
     @GetMapping("/random/{age}")
     public ResponseEntity<Aspiration> getRandomAspirationByAge(@PathVariable String age){
-        return new ResponseEntity<>(Randomizer.getAspiration(age), HttpStatus.OK);
+        return new ResponseEntity<>(Randomizer.getAspiration(age, aspirationAgeRepository.findAll()), HttpStatus.OK);
     }
 
     //TODO add getaspirationByPack
     //TODO add aspirationByPackThenAge
 
-    public static List<Aspiration> getAllAspirationsByAgeName(String ageName, AspirationAgeRepository aspirationAgeRepository){
+    public static List<Aspiration> getAllAspirationsByAgeName(String ageName, List<AspirationAge> aspirationAgeRepository){
         List<Aspiration> aspirations = new ArrayList<>();
-        List<AspirationAge> aspirationAges = aspirationAgeRepository.findAll().stream().filter(entry -> entry.getAge().getAgeName().equalsIgnoreCase(ageName)).toList();
+        List<AspirationAge> aspirationAges = aspirationAgeRepository.stream().filter(entry -> entry.getAge().getAgeName().equalsIgnoreCase(ageName)).toList();
 
         aspirationAges.forEach(entry -> aspirations.add(entry.getAspiration()));
 

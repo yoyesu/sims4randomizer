@@ -13,12 +13,12 @@ public class JobAge {
     @MapsId("job")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "job", nullable = false)
-    private Job jobs;
+    private Job job;
 
     @MapsId("age")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "age", nullable = false)
-    private Age ages;
+    private Age age;
 
     public JobAgeId getJobAgeId() {
         return jobAgeId;
@@ -28,19 +28,19 @@ public class JobAge {
         this.jobAgeId = jobAgeId;
     }
 
-    public Job getJobs() {
-        return jobs;
+    public Job getJob() {
+        return job;
     }
 
-    public void setJobs(Job jobs) {
-        this.jobs = jobs;
+    public void setJob(Job job) {
+        this.job = job;
     }
 
-    public Age getAges() {
-        return ages;
+    public Age getAge() {
+        return age;
     }
 
-    public void setAges(Age ages) {
-        this.ages = ages;
+    public void setAge(Age age) {
+        this.age = age;
     }
 }

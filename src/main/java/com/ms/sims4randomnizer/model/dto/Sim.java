@@ -2,16 +2,19 @@ package com.ms.sims4randomnizer.model.dto;
 
 import com.ms.sims4randomnizer.model.entities.Age;
 import com.ms.sims4randomnizer.model.entities.Gender;
+import com.ms.sims4randomnizer.model.entities.Skill;
+
+import java.util.Set;
 
 public class Sim {
     protected String name;
     protected String surname;
     protected Gender gender;
     protected Age ageGroup;
-    protected Set<? extends Enum<?>> skillsToMaster;
+    protected Set<Skill> skillsToMaster;
     protected boolean isHeir;
 
-    public Sim(Gender gender, Age ageGroup, Set<? extends Enum<?>> skillsToMaster) {
+    public Sim(Gender gender, Age ageGroup, Set<Skill> skillsToMaster) {
         this.gender = gender;
         this.ageGroup = ageGroup;
         this.skillsToMaster = skillsToMaster;
@@ -49,7 +52,7 @@ public class Sim {
         this.ageGroup = ageGroup;
     }
 
-    public Set<? extends Enum<?>> getSkillsToMaster() {
+    public Set<Skill> getSkillsToMaster() {
 
         return skillsToMaster;
     }

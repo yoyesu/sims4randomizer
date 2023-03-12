@@ -3,7 +3,6 @@ package com.ms.sims4randomnizer.controller;
 import com.ms.sims4randomnizer.controller.repositories.AgeRepository;
 import com.ms.sims4randomnizer.controller.repositories.JobAgeRepository;
 import com.ms.sims4randomnizer.controller.repositories.JobRepository;
-import com.ms.sims4randomnizer.exceptions.InvalidVariable;
 import com.ms.sims4randomnizer.model.entities.*;
 import com.ms.sims4randomnizer.util.Randomizer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,21 +43,19 @@ public class JobController {
 
     @GetMapping("/random/{age}")
     public static ResponseEntity<Job> getRandomJobByAge(@PathVariable String age){
-        if(age == null || age.isEmpty()){
-            System.out.println("inside error");
-            throw new RuntimeException();
-        }
-
         //TODO create util method to check path variable type string
 
         return new ResponseEntity<>(Randomizer.getRandomJob(age), HttpStatus.OK);
     }
 
     public static List<Job> getAllJobsByAgeName(String ageName){
+        if(ageName == null || ageName.isEmpty()){
+            throw new RuntimeException();
+        }
         List<Job> jobs = new ArrayList<>();
-        List<JobAge> jobAges = jobAgeRepository.findAll().stream().filter(entry -> entry.getAges().getAgeName().equalsIgnoreCase(ageName)).toList();
+        List<JobAge> jobAges = jobAgeRepository.findAll().stream().filter(entry -> entry.getAge().getAgeName().equalsIgnoreCase(ageName)).toList();
 
-        jobAges.forEach(entry -> jobs.add(entry.getJobs()));
+        jobAges.forEach(entry -> jobs.add(entry.getJob()));
 
         return jobs;
     }

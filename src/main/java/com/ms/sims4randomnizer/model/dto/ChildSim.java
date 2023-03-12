@@ -8,10 +8,9 @@ import com.ms.sims4randomnizer.util.Randomizer;
 public class ChildSim extends Sim{
 
     private Aspiration aspiration;
-    //private Object[] skillsToMax; //skills the sim has to develop to the max level
 
     public ChildSim(Gender gender, Age ageGroup,Aspiration aspiration) {
-        super(gender, ageGroup, Randomizer.getChildSkillsToMax());
+        super(gender, ageGroup, Randomizer.getSkillsToMax());
         this.aspiration = aspiration;
     }
 

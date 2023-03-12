@@ -2,19 +2,19 @@ package com.ms.sims4randomnizer.controller;
 
 public class PropertiesLoader {
 //TODO default value of all the properties should be -1
-    private static int difficulty;
-    private static int lifeSpanType;
-    private static int numberOfStarterSims;
-    private static int wedding;
-    private static int genderOfSim;
-    private static int alreadyMarried;
-    private static int childrenToHave;
-    private static int simAge;
+    private static int difficulty = -1;
+    private static int lifeSpanType = -1;
+    private static int numberOfStarterSims = -1;
+    private static int wedding = -1;
+    private static int genderOfSim = -1;
+    private static int alreadyMarried = -1;
+    private static int childrenToHave = -1;
+    private static int simAge = -1;
     private static int aspiration = -1;
-    private static int job;
-    private static int jobLevel;
-    private static int sexuality;
-    private static int maxNumberOfSkills;
+    private static int job = -1;
+    private static int jobLevel = -1;
+    private static int sexuality = -1;
+    private static int maxNumberOfSkills = -1;
 
     public static int getMaxNumberOfSkills() {
         return maxNumberOfSkills;

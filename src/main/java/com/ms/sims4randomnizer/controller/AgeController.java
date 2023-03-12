@@ -2,8 +2,6 @@ package com.ms.sims4randomnizer.controller;
 
 import com.ms.sims4randomnizer.controller.repositories.AgeRepository;
 import com.ms.sims4randomnizer.model.entities.Age;
-import com.ms.sims4randomnizer.model.enums.Difficulty;
-import com.ms.sims4randomnizer.util.PropertiesLoader;
 import com.ms.sims4randomnizer.util.Randomizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/ages")
@@ -31,6 +28,6 @@ public class AgeController {
 
     @GetMapping("/random")
     public static Age getRandomAge(int starterSims){
-        return Randomizer.getRandomAgeGroup(starterSims);
+        return Randomizer.getRandomAgeGroup(starterSims, ageRepository.findAll());
     }
 }

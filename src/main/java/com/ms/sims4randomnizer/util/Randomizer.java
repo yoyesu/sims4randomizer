@@ -5,6 +5,7 @@ import com.ms.sims4randomnizer.controller.JobController;
 import com.ms.sims4randomnizer.controller.repositories.AgeRepository;
 import com.ms.sims4randomnizer.controller.repositories.AspirationAgeRepository;
 import com.ms.sims4randomnizer.controller.repositories.GenderRepository;
+import com.ms.sims4randomnizer.exceptions.InvalidVariable;
 import com.ms.sims4randomnizer.model.entities.*;
 import com.ms.sims4randomnizer.model.enums.Difficulty;
 import com.ms.sims4randomnizer.model.enums.LifeSpan;
@@ -55,41 +56,57 @@ public class Randomizer {
 
     public static Job getRandomJob(String age){
         List<Job> jobs = JobController.getAllJobsByAgeName(age);
-
-        int job = PropertiesLoader.getJob();
-        int id = job == -1? new Random().nextInt(jobs.size()) : job;
         Job generatedJob = null;
+        int job = PropertiesLoader.getJob();
+        if(job != -1){
+            try{
+                return generatedJob = jobs.stream().filter(entry -> entry.getJobId() == job).toList().get(0);
 
-        for(Job jobInList : jobs){
-            if(jobInList.getJobId() == id){
-                generatedJob = jobInList;
-                break;
+            } catch (Exception e){
+                //in case ID sent from front-end doesn't match any job
+                e.printStackTrace();
             }
         }
+
+        int origin = jobs.stream().mapToInt(Job::getJobId).min().getAsInt();
+        int bound = jobs.stream().mapToInt(Job::getJobId).max().getAsInt() + 1;
+        boolean lookingForID = true;
+
+
+        do {
+            for(Job jobInList : jobs){
+                if(jobInList.getJobId() == new Random().nextInt(origin, bound)){
+                    generatedJob = jobInList;
+                    lookingForID = false;
+                    break;
+                }
+            }
+
+        } while (lookingForID);
 
         return generatedJob;
     }
 
-    public static Age getRandomAgeGroup(int starterSims){
+    public static Age getRandomAgeGroup(int starterSims, List<Age> ages){
         Randomizer.difficulty = Randomizer.getDifficulty();
         Difficulty difficulty = Randomizer.difficulty;
 
         int age = PropertiesLoader.getSimAge();
         int origin = 0;
-        int bound = ageRepository.findAll().size();
+        int bound = ages.size();
         if(starterSims == 1 && (difficulty == Difficulty.EASY || difficulty == Difficulty.NORMAL) || difficulty == Difficulty.EASY){
-            origin = ageRepository.findAgeByAgeNameEqualsIgnoreCase("young adult").getAgeId() -1;
-            bound = ageRepository.findAgeByAgeNameEqualsIgnoreCase("elder").getAgeId();
+            origin = ages.stream().filter(entry -> entry.getAgeName().equalsIgnoreCase("young adult")).toList().get(0).getAgeId() -1;
+            bound = ages.stream().filter(entry -> entry.getAgeName().equalsIgnoreCase("elder")).toList().get(0).getAgeId();
         } else if (starterSims == 1 && difficulty == Difficulty.HARD){
-            origin = ageRepository.findAgeByAgeNameEqualsIgnoreCase("elder").getAgeId() -1;
-            bound = ageRepository.findAgeByAgeNameEqualsIgnoreCase("elder").getAgeId();
+            origin = ages.stream().filter(entry -> entry.getAgeName().equalsIgnoreCase("elder")).toList().get(0).getAgeId() -1;
+            bound = ages.stream().filter(entry -> entry.getAgeName().equalsIgnoreCase("elder")).toList().get(0).getAgeId();
         } else if(starterSims > 1 && difficulty == Difficulty.NORMAL){
-            origin = ageRepository.findAgeByAgeNameEqualsIgnoreCase("young adult").getAgeId() -1;
-            bound = ageRepository.findAgeByAgeNameEqualsIgnoreCase("elder").getAgeId();
+            origin = ages.stream().filter(entry -> entry.getAgeName().equalsIgnoreCase("young adult")).toList().get(0).getAgeId() -1;
+            bound = ages.stream().filter(entry -> entry.getAgeName().equalsIgnoreCase("young adult")).toList().get(0).getAgeId();
         }
 
         int id = age == -1 ? new Random().nextInt(origin, bound) : age;
-        return ageRepository.findById(id).orElseThrow();
+        return ages.stream().filter(entry -> entry.getAgeId() == id).toList().get(0);
     }
 
     public static LifeSpan getLifeSpan(){
@@ -128,7 +145,7 @@ public class Randomizer {
         return genders.get(id);
     }
 
-    public static Aspiration getAspiration(String age){
+    public static Aspiration getAspiration(String age, List<AspirationAge> aspirationAgeRepository){
         int aspiration = PropertiesLoader.getAspiration();
         List<Aspiration> aspirations = AspirationController.getAllAspirationsByAgeName(age, aspirationAgeRepository);
 
@@ -201,83 +218,83 @@ public class Randomizer {
     public static Set<Skill> getSkillsToMax(){
         int numberOfSkillsToMax = PropertiesLoader.getMaxNumberOfSkills();
         int origin = 0;
-        int bound = Skill.values().length;
+//        int bound = Skill.values().length;
 
-        if(numberOfSkillsToMax == -1) {
-
-            LifeSpan lifeSpanType = LifeSpan.values()[lifespan];
-
-            switch (lifeSpanType) {
-                case SHORT -> {//short
-                    if (difficulty == Difficulty.EASY) {
-                        bound = 4;
-                    } else if (difficulty == Difficulty.NORMAL) {
-                        origin = 1;
-                        bound = 6;
-                    } else if (difficulty == Difficulty.HARD) {
-                        origin = 3;
-                        bound = 13;
-                    }
-                }
-                case NORMAL -> {//med
-                    if (difficulty == Difficulty.EASY) {
-                        bound = 7;
-                    } else if (difficulty == Difficulty.NORMAL) {
-                        origin = 2;
-                        bound = 9;
-                    } else if (difficulty == Difficulty.HARD) {
-                        origin = 5;
-                        bound = 16;
-                    }
-                }
-
-                case LONG -> {
-                    if (difficulty == Difficulty.EASY) {
-                        bound = 11;
-                    } else if (difficulty == Difficulty.NORMAL) {
-                        origin = 3;
-                        bound = 13;
-                    } else if (difficulty == Difficulty.HARD) {
-                        origin = 7;
-                    }
-                }
-            }
-
-            numberOfSkillsToMax = new Random().nextInt(origin, bound);
-        }
+//        if(numberOfSkillsToMax == -1) {
+//
+//            LifeSpan lifeSpanType = LifeSpan.values()[lifespan];
+//
+//            switch (lifeSpanType) {
+//                case SHORT -> {//short
+//                    if (difficulty == Difficulty.EASY) {
+//                        bound = 4;
+//                    } else if (difficulty == Difficulty.NORMAL) {
+//                        origin = 1;
+//                        bound = 6;
+//                    } else if (difficulty == Difficulty.HARD) {
+//                        origin = 3;
+//                        bound = 13;
+//                    }
+//                }
+//                case NORMAL -> {//med
+//                    if (difficulty == Difficulty.EASY) {
+//                        bound = 7;
+//                    } else if (difficulty == Difficulty.NORMAL) {
+//                        origin = 2;
+//                        bound = 9;
+//                    } else if (difficulty == Difficulty.HARD) {
+//                        origin = 5;
+//                        bound = 16;
+//                    }
+//                }
+//
+//                case LONG -> {
+//                    if (difficulty == Difficulty.EASY) {
+//                        bound = 11;
+//                    } else if (difficulty == Difficulty.NORMAL) {
+//                        origin = 3;
+//                        bound = 13;
+//                    } else if (difficulty == Difficulty.HARD) {
+//                        origin = 7;
+//                    }
+//                }
+//            }
+//
+//            numberOfSkillsToMax = new Random().nextInt(origin, bound);
+//        }
 
         Set<Skill> skills = new HashSet<>();
-        for(int i = 0; i < numberOfSkillsToMax; i++){
-            if(!skills.add(Skill.values()[new Random().nextInt(Skill.values().length)])){ //this picks skills until the max number of skills is reached
-                i--;
-            }
-        }
+//        for(int i = 0; i < numberOfSkillsToMax; i++){
+//            if(!skills.add(Skill.values()[new Random().nextInt(Skill.values().length)])){ //this picks skills until the max number of skills is reached
+//                i--;
+//            }
+//        }
         return skills;
     }
 
-    public static Set<ToddlerSkill> getToddlerSkillsToMax(){
-        int id = new Random().nextInt(ToddlerSkill.values().length);
-        Set<ToddlerSkill> skills = new HashSet<>();
-        for(int i = 0; i <= id; i++){
-            if(!skills.add(ToddlerSkill.values()[new Random().nextInt(ToddlerSkill.values().length)])){
-                i--;
-            }
-
-        }
-        return skills;
-    }
-
-    public static Set<ChildSkill> getChildSkillsToMax(){
-        int id = new Random().nextInt(ChildSkill.values().length);
-        Set<ChildSkill> skills = new HashSet<>();
-        for(int i = 0; i <= id; i++){
-            if(!skills.add(ChildSkill.values()[new Random().nextInt(ChildSkill.values().length)])){
-                i--;
-            }
-
-        }
-        return skills;
-    }
+//    public static Set<ToddlerSkill> getToddlerSkillsToMax(){
+//        int id = new Random().nextInt(ToddlerSkill.values().length);
+//        Set<ToddlerSkill> skills = new HashSet<>();
+//        for(int i = 0; i <= id; i++){
+//            if(!skills.add(ToddlerSkill.values()[new Random().nextInt(ToddlerSkill.values().length)])){
+//                i--;
+//            }
+//
+//        }
+//        return skills;
+//    }
+//
+//    public static Set<ChildSkill> getChildSkillsToMax(){
+//        int id = new Random().nextInt(ChildSkill.values().length);
+//        Set<ChildSkill> skills = new HashSet<>();
+//        for(int i = 0; i <= id; i++){
+//            if(!skills.add(ChildSkill.values()[new Random().nextInt(ChildSkill.values().length)])){
+//                i--;
+//            }
+//
+//        }
+//        return skills;
+//    }
 
     public static boolean getMarriageStatus(){
         int alreadyMarried = PropertiesLoader.getAlreadyMarried();

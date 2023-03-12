@@ -10,7 +10,7 @@ public class TeenSim extends Sim {
     private Job job;
     private SexualPreference sexualPreference;
 
-    public TeenSim(Gender gender, Age ageGroup, Aspiration aspiration, Job job, SexualPreference sexualPreference, Object[] skillsToMax) {
+    public TeenSim(Gender gender, Age ageGroup, Aspiration aspiration, Job job, SexualPreference sexualPreference) {
         super(gender,ageGroup, Randomizer.getSkillsToMax());
         this.aspiration = aspiration;
         this.job = job;
