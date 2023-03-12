@@ -5,13 +5,11 @@ import com.ms.sims4randomnizer.controller.JobController;
 import com.ms.sims4randomnizer.controller.repositories.AgeRepository;
 import com.ms.sims4randomnizer.controller.repositories.AspirationAgeRepository;
 import com.ms.sims4randomnizer.controller.repositories.GenderRepository;
-import com.ms.sims4randomnizer.exceptions.InvalidVariable;
 import com.ms.sims4randomnizer.model.entities.*;
 import com.ms.sims4randomnizer.model.enums.Difficulty;
 import com.ms.sims4randomnizer.model.enums.LifeSpan;
 
 import com.ms.sims4randomnizer.controller.PropertiesLoader;
-import com.ms.sims4randomnizer.model.enums.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -138,11 +136,28 @@ public class Randomizer {
         return sims;
     }
 
-    public static Gender getGender(){
+    public static Gender getRandomGender(List<Gender> genders){
         int genderOfSim = PropertiesLoader.getGenderOfSim();
-        List<Gender> genders = genderRepository.findAll();
-        int id = genderOfSim < 0? new Random().nextInt(genders.size()) : genderOfSim;
-        return genders.get(id);
+
+        if(genderOfSim != -1){
+            try{
+                return genders.stream().filter(gender -> gender.getGenderId() == genderOfSim).toList().get(0);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        int origin = genders.stream().mapToInt(Gender::getGenderId).min().getAsInt();
+        int bound = genders.stream().mapToInt(Gender::getGenderId).max().getAsInt() + 1;
+        int id = new Random().nextInt(origin, bound);
+
+        List<Gender> genderList;
+        do {
+            genderList = genders.stream().filter(entry -> entry.getGenderId() == id).toList();
+        } while(genderList.size() == 0);
+
+        return genderList.get(0);
     }
 
     public static Aspiration getAspiration(String age, List<AspirationAge> aspirationAgeRepository){

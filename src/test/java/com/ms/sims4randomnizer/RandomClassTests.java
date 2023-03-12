@@ -179,6 +179,6 @@ public class RandomClassTests {
     @DisplayName("Gender index equals one in PropertiesLoader")
     void genderIndexEqualsOneInPropertiesLoader() {
         PropertiesLoader.setGenderOfSim(0);
-        assertThat(Randomizer.getGender().ordinal(), equalTo(PropertiesLoader.getGenderOfSim()) );
+        assertThat(Randomizer.getRandomGender().ordinal(), equalTo(PropertiesLoader.getGenderOfSim()) );
     }
 }

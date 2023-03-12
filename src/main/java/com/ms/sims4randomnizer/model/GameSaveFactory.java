@@ -7,6 +7,7 @@ import com.ms.sims4randomnizer.model.dto.Household;
 import com.ms.sims4randomnizer.model.dto.Sim;
 import com.ms.sims4randomnizer.model.entities.Age;
 import com.ms.sims4randomnizer.model.entities.AspirationAge;
+import com.ms.sims4randomnizer.model.entities.Gender;
 import com.ms.sims4randomnizer.util.Randomizer;
 
 import java.util.ArrayList;
@@ -16,15 +17,15 @@ import static com.ms.sims4randomnizer.util.Randomizer.*;
 
 public class GameSaveFactory {
 
-    public static GameSave createGameSave(String modality, PropertiesConfiguration config, List<Age> ages, List<AspirationAge> aspirationAgeRepository){
+    public static GameSave createGameSave(String modality, PropertiesConfiguration config, List<Age> ages, List<AspirationAge> aspirationAgeRepository, List<Gender> genderRepository){
         switch (modality){
-            case "single" ->{ return generateGameSaveForSingleSimHousehold(config, ages, aspirationAgeRepository);}
-            case "multiple" -> {return generateGameSaveForGeneralHousehold(config, ages, aspirationAgeRepository);}
+            case "single" ->{ return generateGameSaveForSingleSimHousehold(config, ages, aspirationAgeRepository, genderRepository);}
+            case "multiple" -> {return generateGameSaveForGeneralHousehold(config, ages, aspirationAgeRepository, genderRepository);}
             default -> throw new RuntimeException();
         }
     }
 
-    private static GameSave generateGameSaveForSingleSimHousehold(PropertiesConfiguration config, List<Age> ages, List<AspirationAge> aspirationAgeRepository) {
+    private static GameSave generateGameSaveForSingleSimHousehold(PropertiesConfiguration config, List<Age> ages, List<AspirationAge> aspirationAgeRepository, List<Gender> genderRepository) {
 
         PropertiesLoader.setGenderOfSim(config.getGender());
         PropertiesLoader.setDifficulty(config.getDifficulty());
@@ -40,25 +41,25 @@ public class GameSaveFactory {
         PropertiesLoader.setJobLevel(config.getJobLevel());
         PropertiesLoader.setMaxNumberOfSkills(config.getSkillsArrayLength());
 
-        return new GameSave(generateHousehold(1, ages, aspirationAgeRepository));
+        return new GameSave(generateHousehold(1, ages, aspirationAgeRepository, genderRepository));
     }
 
-    private static Household generateHousehold(int numberOfSims, List<Age> ages, List<AspirationAge> aspirationAgeRepository){
-        return new Household(getLifeSpan(), generateSims(numberOfSims, ages, aspirationAgeRepository));
+    private static Household generateHousehold(int numberOfSims, List<Age> ages, List<AspirationAge> aspirationAgeRepository, List<Gender> genderRepository){
+        return new Household(getLifeSpan(), generateSims(numberOfSims, ages, aspirationAgeRepository, genderRepository));
     }
 
-    private static List<Sim> generateSims(int numberOfSims, List<Age> ages, List<AspirationAge> aspirationAgeRepository){
+    private static List<Sim> generateSims(int numberOfSims, List<Age> ages, List<AspirationAge> aspirationAgeRepository, List<Gender> genderRepository){
         List<Sim> sims = new ArrayList<>();
 
         for(int i = 0; i < numberOfSims; i++){
-            Sim sim = SimFactory.createSims(Randomizer.getRandomAgeGroup(numberOfSims, ages), aspirationAgeRepository);
+            Sim sim = SimFactory.createSims(Randomizer.getRandomAgeGroup(numberOfSims, ages), aspirationAgeRepository, genderRepository);
             sims.add(sim);
         }
 
         return sims;
     }
 
-    private static GameSave generateGameSaveForGeneralHousehold(PropertiesConfiguration config, List<Age> ages, List<AspirationAge> aspirationAgeRepository){
+    private static GameSave generateGameSaveForGeneralHousehold(PropertiesConfiguration config, List<Age> ages, List<AspirationAge> aspirationAgeRepository, List<Gender> genderRepository){
 
         PropertiesLoader.resetProperties();
 
@@ -67,7 +68,7 @@ public class GameSaveFactory {
         PropertiesLoader.setLifeSpanType(config.getLifespan());
         PropertiesLoader.setNumberOfStarterSims(config.getStarterSims());
 
-        return new GameSave(generateHousehold(getNumberOfSims(), ages, aspirationAgeRepository));
+        return new GameSave(generateHousehold(getNumberOfSims(), ages, aspirationAgeRepository, genderRepository));
     }
 
 }
