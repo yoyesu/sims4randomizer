@@ -27,7 +27,9 @@ public class AgeController {
     }
 
     @GetMapping("/random")
-    public static Age getRandomAge(int starterSims){
-        return Randomizer.getRandomAgeGroup(starterSims, ageRepository.findAll());
+    public static Age getRandomAge(){
+        PropertiesLoader.resetProperties();
+        //TODO check this method works after one of the spring controllers has been used after setting a custom number for number of sims. This endpoint should always return ANY of the ages
+        return Randomizer.getRandomAgeGroup(PropertiesLoader.getNumberOfSims(), ageRepository.findAll());
     }
 }
